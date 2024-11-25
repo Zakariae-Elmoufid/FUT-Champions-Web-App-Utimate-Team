@@ -6,10 +6,155 @@
     <link rel="stylesheet" href="assets/style/style.css">
     <title>FUT Champions</title>
 </head>
-<body >
-    <section class="main-bg">
+<body class="main-bg">
+    <section class="container">
+            <div class="image ">
+            <div><img src="" alt=""></div>
+            </div>
+            <div class="form-container">
+                <h2>Player Form</h2>
+                <form id="paginatedForm">
+                    <!-- Type Selection -->
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="playerType">Select Player Type:</label>
+                            <select id="playerType">
+                                <option value="player">Field Player</option>
+                                <option value="goalkeeper">Goalkeeper</option>
+                            </select>
+                        </div>
+                    </div>
         
+                    <!-- Section 1 -->
+                    <div class="form-section hidden">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Enter player's name">
+                        </div>
+                        <div class="form-group">
+                            <label for="photo">Photo</label>
+                            <input type="file" id="photo">
+                        </div>
+                        <div class="form-group">
+                            <label for="nationality">Nationality</label>
+                            <input type="text" id="nationality" placeholder="Enter nationality">
+                        </div>
+                        <div class="form-group">
+                            <label for="flag">National Flag</label>
+                            <input type="file" id="flag">
+                        </div>
+                    </div>
+        
+                    <!-- Section 2 -->
+                    <div class="form-section hidden">
+                        <div class="form-group">
+                            <label for="club">Club</label>
+                            <input type="text" id="club" placeholder="Enter club name">
+                        </div>
+                        <div class="form-group">
+                            <label for="logo">Club Logo</label>
+                            <input type="file" id="logo">
+                        </div>
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <input type="number" id="rating" placeholder="Enter rating">
+                        </div>
+                    </div>
+        
+                    <!-- Section 3 (Player-specific) -->
+                    <div class="form-section hidden" id="playerFields">
+                        <div class="form-group">
+                            <label for="pace">Pace</label>
+                            <input type="number" id="pace" placeholder="Enter pace score">
+                        </div>
+                        <div class="form-group">
+                            <label for="shooting">Shooting</label>
+                            <input type="number" id="shooting" placeholder="Enter shooting score">
+                        </div>
+                        <div class="form-group">
+                            <label for="dribbling">Dribbling</label>
+                            <input type="number" id="dribbling" placeholder="Enter dribbling score">
+                        </div>
+                        <div class="form-group">
+                            <label for="defending">Defending</label>
+                            <input type="number" id="defending" placeholder="Enter defending score">
+                        </div>
+                    </div>
+        
+                    <!-- Section 3 (Goalkeeper-specific) -->
+                    <div class="form-section hidden" id="goalkeeperFields">
+                        <div class="form-group">
+                            <label for="diving">Diving</label>
+                            <input type="number" id="diving" placeholder="Enter diving score">
+                        </div>
+                        <div class="form-group">
+                            <label for="handling">Handling</label>
+                            <input type="number" id="handling" placeholder="Enter handling score">
+                        </div>
+                        <div class="form-group">
+                            <label for="reflexes">Reflexes</label>
+                            <input type="number" id="reflexes" placeholder="Enter reflexes score">
+                        </div>
+                    </div>
+        
+                    <div class="buttons">
+                        <button type="button" id="prevBtn" disabled>Previous</button>
+                        <button type="button" id="nextBtn">Next</button>
+                    </div>
+                </form>
+            </div>
     </section>
+
+    <script>
+        const sections = document.querySelectorAll('.form-section');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const playerType = document.getElementById('playerType');
+        const playerFields = document.getElementById('playerFields');
+        const goalkeeperFields = document.getElementById('goalkeeperFields');
+        let currentSection = 0;
+
+        function updateForm() {
+            sections.forEach((section, index) => {
+                section.classList.toggle('hidden', index !== currentSection);
+            });
+
+            // Show specific fields based on player type
+            if (playerType.value === 'player') {
+                playerFields.classList.remove('hidden');
+                goalkeeperFields.classList.add('hidden');
+            } else {
+                goalkeeperFields.classList.remove('hidden');
+                playerFields.classList.add('hidden');
+            }
+
+            // Update button states
+            prevBtn.disabled = currentSection === 0;
+            nextBtn.textContent = currentSection === sections.length - 1 ? 'Submit' : 'Next';
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSection > 0) {
+                currentSection--;
+                updateForm();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSection < sections.length - 1) {
+                currentSection++;
+                updateForm();
+            } else {
+                alert('Form submitted!');
+                document.getElementById('paginatedForm').reset();
+                currentSection = 0;
+                updateForm();
+            }
+        });
+
+        playerType.addEventListener('change', updateForm);
+        updateForm(); // Initialize form display
+    </script>
 
     
 </body>

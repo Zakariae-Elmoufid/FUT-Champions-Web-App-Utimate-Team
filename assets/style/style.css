@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+body {
+  background-color: white;
+}
+
+:root {
+  --main-color: #3076d7;
+  --secondry-color: ;
+  --background-color: #f0f6fe;
+}
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Small */
+  @media (min-width: 768px) {
+    .container {
+      width: 750px;
+    }
+  }
+  /* Medium */
+  @media (min-width: 992px) {
+    .container {
+      width: 970px;
+    }
+  }
+  /* Large */
+  @media (min-width: 1200px) {
+    .container {
+      width: 1170px;
+    }
+  }
+
+  .main-bg{
+   background-image: url("../images/stadium_background.webp");
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 100vh;
+   width: 100vw ;
+   
+  }
+
+  h1 {
+    color: red;
+  }

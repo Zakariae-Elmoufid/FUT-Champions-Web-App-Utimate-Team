@@ -73,7 +73,7 @@ body {
   }
   @media (max-width: 768px) {
     .image{
-      width: 400px; 
+      width: 500px; 
     }
   }
   .image .gool {
@@ -94,12 +94,86 @@ body {
   }
   .image .cart {
     width: 70px;
+    min-height: 100px;
   }
-  @media (max-width: 768px) {
+
+  @media (min-width: 374px) {
     .image .cart {
-      width: 50px; 
+      min-height: 80px;
+    }
+    .image{
+      width: 400px; 
     }
   }
+
+  .image .attack .lw {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .attack .st {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .attack .rw {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .midfield .cm {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .midfield .mdc {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .midfield .cm  {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .defense .lb {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .defense .cb {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .defense .cb {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .defense .rb {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .image .gool .gk {
+    background-image: url('../images/badge_ballon_dor.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+
+
   
 
 

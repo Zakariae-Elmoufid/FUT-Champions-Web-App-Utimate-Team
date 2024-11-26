@@ -10,7 +10,7 @@ body {
 }
 
 :root {
-  --main-color: #3076d7;
+  --main-color: #e08507;
   --secondry-color: ;
   --background-color: #f0f6fe;
 }
@@ -53,7 +53,7 @@ body {
     margin-top: 100px;
     display: flex;
     align-items: start ;
-    justify-content: space-around;
+    justify-content: space-between;
    }
    
   /* Medium */
@@ -65,17 +65,17 @@ body {
   }
   .image {
     background-image: url('../images/stadium_background.webp');
-    width: 550px;
-    height: 450px;
+    width: 700px;
+    height: 1000px;
     background-size: contain;
     background-repeat: no-repeat;
     padding: 20px;
   }
-  @media (max-width: 768px) {
+  /* @media (max-width: 768px) {
     .image{
       width: 500px; 
     }
-  }
+  } */
   .image .gool {
     display: flex;
     justify-content: center;
@@ -93,89 +93,105 @@ body {
     justify-content: space-around;
   }
   .image .cart {
-    width: 70px;
-    min-height: 100px;
+    width: 90px;
+    min-height: 120px;
+    background-image: url('../images/card.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+     overflow: hidden; 
+    padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+ 
+  }
+  .image .cart::after {
+    content: attr(data-position);
+    position: absolute;
+    width: fit-content;
+    padding: 3px;
+    font-size: 10px;
+    background-color:var(--main-color);
+    border-radius: 100%;
+    top: 85%;
+    left: 39%;
   }
 
-  @media (min-width: 374px) {
+  @media (max-width: 500px) {
     .image .cart {
-      min-height: 80px;
+      min-height: 70px;
     }
     .image{
       width: 400px; 
     }
   }
-
-  .image .attack .lw {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
+  
+  .cart .top-section {
+    display: flex;
+    color:white;
+    gap: 25px;
+    font-size: 8px;
+    font-weight: bold;
+    color: white;
   }
 
-  .image .attack .st {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
+ 
+  .cart .player-img {
+    width: fit-content;
+  }
+  .cart .player-img img{
+    width: 30px;
+    height: 30px;
+
   }
 
-  .image .attack .rw {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
+  .cart .name {
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  } 
+
+  .cart .stats {
+     display: flex;
+     justify-content: center;
+     gap: 2px;
+     padding: 1px 3px;
+     font-size: 3px;
   }
 
-  .image .midfield .cm {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
+  .cart .stat {
+    background-color: rgba(61, 57, 57, 0.779);
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    padding: 2px;
   }
+  .cart .stat span {
+    display: block;
+  }
+  
+  .cart .bottom-section {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 2px ;
+  }
+  .cart .bottom-section img {
+    width: 15px;
+    height: 10px;
+  }
+   
 
-  .image .midfield .mdc {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
 
-  .image .midfield .cm  {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
 
-  .image .defense .lb {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .image .defense .cb {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .image .defense .cb {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .image .defense .rb {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .image .gool .gk {
-    background-image: url('../images/badge_ballon_dor.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
 
 
 
   
-
 
 
 
@@ -193,7 +209,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 300px;
 }
 .form-container h2 {
     text-align: center;

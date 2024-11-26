@@ -14,17 +14,17 @@
 
             <div class="attack ">
                 <div class="cart lw" data-position="LW" >
-                  
                     <div class="top-section">
+                    <div >
                         <div class="rating">99</div>
-                        <div class="position">CM</div>
+                        <div class="nationality">moroco</div>
                       </div>
                   
                       <!-- Image du joueur -->
                       <div class="player-img">
                         <img src="assets/images/Hakim_Ziyech_2021.jpg" alt="Messi">
                       </div>
-                  
+                    </div>
                       <!-- Nom du joueur -->
                       <div class="name">MESSI LEO</div>
                   
@@ -84,22 +84,13 @@
         <div class="form-container">
             <h2>Player Form</h2>
             <form id="paginatedForm">
-                <!-- Type Selection -->
-                <div class="form-section">
-                    <div class="form-group">
-                        <label for="playerType">Select Player Type:</label>
-                        <select id="playerType">
-                            <option value="player">Field Player</option>
-                            <option value="goalkeeper">Goalkeeper</option>
-                        </select>
-                    </div>
-                </div>
+             
 
                 <!-- Section 1 -->
                 <div class="form-section hidden">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Enter player's name">
+                        <input type="text"  id="name" placeholder="Enter player's name">
                     </div>
                     <div class="form-group">
                         <label for="photo">Photo</label>
@@ -129,13 +120,25 @@
                         <label for="rating">Rating</label>
                         <input type="number" id="rating" placeholder="Enter rating">
                     </div>
+                      <!-- Type Selection -->
+                   
+                    <div class="form-group">
+                        <label for="playerType">Select Player Type:</label>
+                        <select id="playerType">
+                            <option value="player">Field Player</option>
+                            <option value="goalkeeper">Goalkeeper</option>
+                        </select>
+                    </div>
+                
                 </div>
+
+                 
 
                 <!-- Section 3 (Player-specific) -->
                 <div class="form-section hidden" id="playerFields">
                     <div class="form-group">
                         <label for="pace">Pace</label>
-                        <input type="number" id="pace" placeholder="Enter pace score">
+                        <input type="number"  id="pace" placeholder="Enter pace score">
                     </div>
                     <div class="form-group">
                         <label for="shooting">Shooting</label>

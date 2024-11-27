@@ -10,10 +10,10 @@ function updateForm() {
   // Afficher la section actuelle
   sections.forEach((section, index) => {
     if (index === currentSection) {
-      section.classList.remove("hidden"); // Affiche la section active
+      section.classList.remove("hidden"); 
     }
     if (index !== currentSection) {
-      section.classList.add("hidden"); // Cache les autres sections
+      section.classList.add("hidden"); 
     }
   });
 
@@ -22,10 +22,12 @@ function updateForm() {
     if (playerType.value === "player") {
       playerFields.classList.remove("hidden");
       goalkeeperFields.classList.add("hidden");
+
     } else if (playerType.value === "goalkeeper") {
       goalkeeperFields.classList.remove("hidden");
       playerFields.classList.add("hidden");
     }
+ 
   }
 
   // Update button states
@@ -35,8 +37,10 @@ function updateForm() {
     prevBtn.classList.remove("hidden");
   }
   nextBtn.textContent =
-    currentSection === sections.length - 1 ? "Submit" : "Next";
+    currentSection === sections.length - 2 ? "Submit" : "Next";
 }
+
+
 
 prevBtn.addEventListener("click", () => {
   if (currentSection > 0) {
@@ -47,7 +51,7 @@ prevBtn.addEventListener("click", () => {
 
 nextBtn.addEventListener("click", () => {
   if (validateInput()) {
-    if (currentSection < sections.length - 1) {
+    if (currentSection < sections.length-2 ) {
       currentSection++;
       updateForm();
     } else {
@@ -64,43 +68,62 @@ updateForm();
 
 function validateInput() {
   const inputs = sections[currentSection].querySelectorAll("input, select");
-  const sectionInput = currentSection;
-  console.log(sectionInput);
 
-  let isValid = false;
+  
+   
+  let isValid = true; 
+   
+  console.log(currentSection);
+  
+  if(currentSection<2){
+  inputs.forEach((input) => {
+    const errorMessage = input.nextElementSibling;
 
-  if (sectionInput < 2) {
-    inputs.forEach((input) => {
-      input.nextElementSibling;
+    if (input.value.trim() === "") {
+      input.classList.add("error");
 
-      if (input.value === "") {
+      if (!errorMessage || !errorMessage.classList.contains("error-message")) {
+        const error = document.createElement("span");
+        error.textContent = `${input.previousElementSibling.textContent} is required`;
+        error.classList.add("error-message");
+        input.parentNode.appendChild(error);
+      }
+
+      isValid = false; 
+    } else {
+      input.classList.remove("error");
+
+    
+      if (errorMessage && errorMessage.classList.contains("error-message")) {
+        errorMessage.remove();
+      }
+    }
+
+    if (input.type === "number") {
+      const value = parseFloat(input.value);
+      if (isNaN(value) || value < 10 || value > 99) {
         input.classList.add("error");
 
-        if (
-          !input.nextElementSibling ||
-          !input.nextElementSibling.classList.contains("error-message")
-        ) {
+        if (!input.nextElementSibling || !input.nextElementSibling.classList.contains("error-message")) {
           const error = document.createElement("span");
-          error.textContent = `${input.previousElementSibling.textContent} is required`;
+          error.textContent = "Please enter a valid number (10-99).";
           error.classList.add("error-message");
           input.parentNode.appendChild(error);
         }
 
         isValid = false;
       } else {
-          isValid = true;
         input.classList.remove("error");
-        if (
-          input.nextElementSibling &&
-          input.nextElementSibling.classList.contains("error-message")
-        ) {
+
+        if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-message")) {
           input.nextElementSibling.remove();
         }
       }
-      
-    });
-  }
-
-
+    }
+  });
+}
   return isValid;
 }
+
+
+

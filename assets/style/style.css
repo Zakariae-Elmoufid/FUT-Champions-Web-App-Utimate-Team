@@ -281,7 +281,7 @@ body {
 
 
   .form-container {
-    background-color: #ffffff;
+    background-color: #9d949466;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -290,7 +290,7 @@ body {
 .form-container h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #d8d1d1;
 }
 .form-group {
     margin-bottom: 15px;
@@ -299,7 +299,7 @@ body {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #555;
+    color: #d0cccc;
 }
 .form-group input {
     width: 100%;

@@ -59,20 +59,20 @@
                       </div> 
                   
                 </div>
-                <div class="cart st " data-position="ST"  ></div>
+                <div class="cart st " data-position="ST"></div>
                 <div class="cart rw " data-position="RW"></div>
             </div>
             
             <div class="midfield ">
-                <div class="cart cm " data-position="CM"></div>
-                <div class="cart mdc " data-position="MDC"></div>
-                <div class="cart cm " data-position="CM"></div>
+                <div class="cart cdm " data-position="CDM"></div>
+                <div class="cart mc " data-position="CM"></div>
+                <div class="cart cam " data-position="CAM"></div>
             </div>
 
             <div class="defense">
                 <div class="cart lb " data-position="LB"></div>
-                <div class="cart cb " data-position="CB"></div>
-                <div class="cart cb " data-position="CB"></div>
+                <div class="cart cb " data-position="CBR"></div>
+                <div class="cart cb " data-position="CBL"></div>
                 <div class="cart rb " data-position="RB"></div>
             </div>
 
@@ -94,7 +94,7 @@
                     </div>
                     <div class="form-group">
                         <label for="photo">Photo</label>
-                        <input type="file" id="photo">
+                        <input type="url" id="photo" placeholder="Enter photo URL" pattern="https?://.*.(jpg|jpeg|png|gif|webp)">
                     </div>
                     <div class="form-group">
                         <label for="nationality">Nationality</label>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-group">
                         <label for="flag">National Flag</label>
-                        <input type="file" id="flag">
+                        <input type="url" id="flag">
                     </div>
                 </div>
 
@@ -114,7 +114,7 @@
                     </div>
                     <div class="form-group">
                         <label for="logo">Club Logo</label>
-                        <input type="file" id="logo">
+                        <input type="url" id="logo">
                     </div>
                     <div class="form-group">
                         <label for="rating">Rating</label>
@@ -137,6 +137,29 @@
                 <!-- Section 3 (Player-specific) -->
                 <div class="form-section hidden" id="playerFields">
                     <div class="form-group">
+                        <label for="playerPosition">position</label>
+                
+                        <select id="playerPosition">
+                            
+                            <!-- Defenders -->
+                            <option value="left-back">Left Back (LB)</option>
+                            <option value="center-back-left">Center Back Left (CBL)</option>
+                            <option value="center-back-right">Center Back Right (CBR)</option>
+                            <option value="right-back">Right Back (RB)</option>
+                        
+                            <!-- Midfielders -->
+                            <option value="defensive-midfielder">Defensive Midfielder (CDM)</option>
+                            <option value="center-midfielder">Center Midfielder (CM)</option>
+                            <option value="attacking-midfielder">Attacking Midfielder (CAM)</option>
+                        
+                            <!-- Forwards -->
+                            <option value="left-winger">Left Winger (LW)</option>
+                            <option value="center-forward">Center Forward (ST)</option>
+                            <option value="right-winger">Right Winger (RW)</option>
+                        </select>
+                        
+                    </div>
+                    <div class="form-group">
                         <label for="pace">Pace</label>
                         <input type="number"  id="pace" placeholder="Enter pace score">
                     </div>
@@ -152,6 +175,11 @@
                         <label for="defending">Defending</label>
                         <input type="number" id="defending" placeholder="Enter defending score">
                     </div>
+                    <div class="form-group">
+                        <label for="physical">Physical</label>
+                        <input type="number" id="physical" placeholder="Entre physical score">
+                    </div>
+                   
                 </div>
 
                 <!-- Section 3 (Goalkeeper-specific) -->
@@ -177,6 +205,8 @@
             </form>
         </div>
     </section>
+
+    <div id="save"></div>
 
      <script src="assets/script/main.js"></script>
 

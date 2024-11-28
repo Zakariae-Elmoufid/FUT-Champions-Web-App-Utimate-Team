@@ -206,7 +206,10 @@ body {
 .cart .delet {
    color: var(--main-color);
    position: relative;
-}
+   top: -1%;
+   left: -37%;
+   font-size: small;
+  }
 .replacements {
   display: flex;
   flex-wrap: wrap;

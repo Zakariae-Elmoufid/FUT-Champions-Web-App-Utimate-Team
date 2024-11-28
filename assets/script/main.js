@@ -166,6 +166,7 @@ function saveData() {
 
   
   let player = {
+    id: Date.now(),
     name: nameValue,
     photo: photoValue,
     nationality: nationalityValue,
@@ -345,7 +346,7 @@ function generatePlayer(item) {
 
 function generateGoal(item) {
   return `
-    <i class='delet bx bxs-trash'></i>
+    <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
     <div class="top-section">
       <div>
         <div class="rating">${item.rating}</div>
@@ -396,6 +397,14 @@ function remplacement(item) {
         myDiv.setAttribute("id",`${item.position}`)
         replacement.appendChild(myDiv); 
         return replacement;
+}
+
+function removePlayer(id){
+  players = players.filter(player => player.id !== id);
+
+  // Sauvegarder les modifications dans localStorage
+  saveToLocalStorage();
+  location.reload()
 }
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -156,6 +156,7 @@ function saveData() {
   const defendingValue = document.getElementById("defending").value;
   const physicalValue = document.getElementById("physical").value;
 
+
   // Section 3 (Goalkeeper-specific)
   const divingValue = document.getElementById("diving").value;
   const handlingValue = document.getElementById("handling").value;
@@ -184,14 +185,13 @@ function saveData() {
     physical: physicalValue,
   };
    
-
   players.push(player);
   saveToLocalStorage();
   displayPlayers([player]);
+
 }
 
-function displayPlayers(players){  
-
+function displayPlayers(players){
 
   const LW = document.getElementById('LW');
   const ST = document.getElementById('ST');
@@ -205,20 +205,20 @@ function displayPlayers(players){
   const RB = document.getElementById('RB');
   const GK = document.getElementById('GK');
 
-  
+   console.log(players);
 
   players.forEach((item) => {
     if (item.position === "gk" ) {
       if(!GK.classList.contains("exest")){
-        GK.innerHTML = generateGoal(item);
         GK.classList.add("exest")
+        GK.innerHTML = generateGoal(item);
       }else{
         remplacement(item);
       }
       
     }  else if (item.position === "LB") {
       if(!LB.classList.contains("exest")){
-        LB.innerHTML = generateGoal(item);
+        LB.innerHTML = generatePlayer(item);
         LB.classList.add("exest")
       }else{
         remplacement(item);
@@ -226,63 +226,63 @@ function displayPlayers(players){
     }
     else if (item.position === "CBL") {
       if(!CBL.classList.contains("exest")){
-        CBL.innerHTML = generateGoal(item);
+        CBL.innerHTML = generatePlayer(item);
         CBL.classList.add("exest")
       }else{
         remplacement(item);
       }
     } else if (item.position === "CBR") {
       if(!CBR.classList.contains("exest")){
-        CBR.innerHTML = generateGoal(item);
+        CBR.innerHTML = generatePlayer(item);
         CBR.classList.add("exest")
       }else{
         remplacement(item);
       } 
     } else if (item.position === "RB") {
       if(!RB.classList.contains("exest")){
-        RB.innerHTML = generateGoal(item);
+        RB.innerHTML = generatePlayer(item);
         RB.classList.add("exest")
       }else{
         remplacement(item);
       }
     } else if (item.position === "CDM") {
       if(!CDM.classList.contains("exest")){
-        CDM.innerHTML = generateGoal(item);
+        CDM.innerHTML = generatePlayer(item);
         CDM.classList.add("exest")
       }else{
         remplacement(item);
       }    
     } else if (item.position === "CM") {
       if(!CM.classList.contains("exest")){
-        CM.innerHTML = generateGoal(item);
+        CM.innerHTML = generatePlayer(item);
         CM.classList.add("exest")
       }else{
         remplacement(item);
       }    
     } else if (item.position === "CAM") {
       if(!CAM.classList.contains("exest")){
-        CAM.innerHTML = generateGoal(item);
+        CAM.innerHTML = generatePlayer(item);
         CAM.classList.add("exest")
       }else{
         remplacement(item);
       }    
     } else if (item.position === "LW") {
       if(!LW.classList.contains("exest")){
-        LW.innerHTML = generateGoal(item);
+        LW.innerHTML = generatePlayer(item);
         LW.classList.add("exest")
       }else{
         remplacement(item);
       }    
     } else if (item.position === "ST") {
       if(!ST.classList.contains("exest")){
-        ST.innerHTML = generateGoal(item);
+        ST.innerHTML = generatePlayer(item);
         ST.classList.add("exest")
       }else{
         remplacement(item);
       }    
     } else if (item.position === "RW") {
       if(!RW.classList.contains("exest")){
-        RW.innerHTML = generateGoal(item);
+        RW.innerHTML = generatePlayer(item);
         RW.classList.add("exest")
       }else{
         remplacement(item);
@@ -345,6 +345,7 @@ function generatePlayer(item) {
 
 function generateGoal(item) {
   return `
+    <i class='delet bx bxs-trash'></i>
     <div class="top-section">
       <div>
         <div class="rating">${item.rating}</div>
@@ -363,15 +364,15 @@ function generateGoal(item) {
     <!-- Statistiques -->
     <div class="stats">
       <div class="stat">
-        <span class="stat-title">DRI</span>
+        <span class="stat-title">hand</span>
         <span class="stat-value">${item.handling}</span>
       </div>
       <div class="stat">
-        <span class="stat-title">DEF</span>
+        <span class="stat-title">ref</span>
         <span class="stat-value">${item.reflexes}</span>
       </div>
       <div class="stat">
-        <span class="stat-title">PHY</span>
+        <span class="stat-title">div</span>
         <span class="stat-value">${item.diving}</span>
       </div>
       

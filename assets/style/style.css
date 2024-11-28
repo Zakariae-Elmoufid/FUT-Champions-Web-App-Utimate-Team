@@ -203,6 +203,10 @@ body {
   width: 15px;
   height: 10px;
 }
+.cart .delet {
+   color: var(--main-color);
+   position: relative;
+}
 .replacements {
   display: flex;
   flex-wrap: wrap;

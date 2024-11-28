@@ -22,12 +22,10 @@ function updateForm() {
     if (playerType.value === "player") {
       playerFields.classList.remove("hidden");
       goalkeeperFields.classList.add("hidden");
-
     } else if (playerType.value === "goalkeeper") {
       goalkeeperFields.classList.remove("hidden");
       playerFields.classList.add("hidden");
     }
-
   }
 
   // Update button states
@@ -38,14 +36,10 @@ function updateForm() {
   }
   nextBtn.textContent =
     currentSection === sections.length - 2 ? "Submit" : "Next";
-
-
 }
 
 function validateInput() {
   const inputs = sections[currentSection].querySelectorAll("input, select");
-
-
 
   let isValid = true;
 
@@ -58,7 +52,10 @@ function validateInput() {
       if (input.value.trim() === "") {
         input.classList.add("error");
 
-        if (!errorMessage || !errorMessage.classList.contains("error-message")) {
+        if (
+          !errorMessage ||
+          !errorMessage.classList.contains("error-message")
+        ) {
           const error = document.createElement("span");
           error.textContent = `${input.previousElementSibling.textContent} is required`;
           error.classList.add("error-message");
@@ -68,7 +65,6 @@ function validateInput() {
         isValid = false;
       } else {
         input.classList.remove("error");
-
 
         if (errorMessage && errorMessage.classList.contains("error-message")) {
           errorMessage.remove();
@@ -80,7 +76,10 @@ function validateInput() {
         if (isNaN(value) || value < 10 || value > 99) {
           input.classList.add("error");
 
-          if (!input.nextElementSibling || !input.nextElementSibling.classList.contains("error-message")) {
+          if (
+            !input.nextElementSibling ||
+            !input.nextElementSibling.classList.contains("error-message")
+          ) {
             const error = document.createElement("span");
             error.textContent = "Please enter a valid number (10-99).";
             error.classList.add("error-message");
@@ -91,7 +90,10 @@ function validateInput() {
         } else {
           input.classList.remove("error");
 
-          if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-message")) {
+          if (
+            input.nextElementSibling &&
+            input.nextElementSibling.classList.contains("error-message")
+          ) {
             input.nextElementSibling.remove();
           }
         }
@@ -126,29 +128,25 @@ nextBtn.addEventListener("click", () => {
 playerType.addEventListener("change", updateForm);
 updateForm();
 
-
 function saveData() {
-
-
   // Section 1
   const nameValue = document.getElementById("name").value;
-  const photoValue = document.getElementById("photo").value
+  const photoValue = document.getElementById("photo").value;
   const nationalityValue = document.getElementById("nationality").value;
   const flagValue = document.getElementById("flag").value;
 
   // Section 2
   const clubValue = document.getElementById("club").value;
-  const logoValue = document.getElementById("logo").value
+  const logoValue = document.getElementById("logo").value;
   const ratingValue = document.getElementById("rating").value;
   const typePlayerValue = document.getElementById("playerType").value;
-
   // Section 3 (Player-specific)
   const playerPositionValue = document.getElementById("playerPosition").value;
   const paceValue = document.getElementById("pace").value;
   const shootingValue = document.getElementById("shooting").value;
   const dribblingValue = document.getElementById("dribbling").value;
   const defendingValue = document.getElementById("defending").value;
-  const physicalValue = document.getElementById('physical').value;
+  const physicalValue = document.getElementById("physical").value;
 
   // Section 3 (Goalkeeper-specific)
   const divingValue = document.getElementById("diving").value;
@@ -156,11 +154,6 @@ function saveData() {
   const reflexesValue = document.getElementById("reflexes").value;
 
   // Afficher les valeurs dans la console pour vérification
-
-
-  let saveData = document.getElementById('save');
-
-
 
   let players = [];
 
@@ -183,9 +176,8 @@ function saveData() {
     reflexes: reflexesValue,
     physical: physicalValue,
   };
-
   players.push(player);
-  console.log(player);
+  console.log(player.playerPosition);
 
 
   const LW = document.querySelectorAll('[data-position="LW"]');
@@ -200,63 +192,58 @@ function saveData() {
   const RB = document.querySelectorAll('[data-position="RB"]');
   const GK = document.querySelectorAll('[data-position="GK"]');
 
-
-  players.forEach(item => {
-    if (item.playerPosition === "left-back") {
-      LB.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+  players.forEach((item) => {
+    if (item.playerPosition === "gk") {
+      GK.forEach((element) => {
+        element.innerHTML += generateGoal(item);
       });
     } else if (item.playerPosition === "center-back-left") {
-      CBL.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+      CBL.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
-    } else if (item.playerPosition === "left-back-right") {
-      CBR.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+    } else if (item.playerPosition === "center-back-right") {
+      CBR.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
     } else if (item.playerPosition === "right-back") {
-      RB.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+      RB.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
-
     } else if (item.playerPosition === "defensive-midfielder") {
-      CDM.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+      CDM.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
     } else if (item.playerPosition === "center-midfielder") {
-      CM.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
-      }); 
-    } else if (item.playerPosition === "attacking-midfielder") {
-      CAM.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+      CM.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
-    } else if(item.playerPosition === "left-winger") {
-      LW.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+    } else if (item.playerPosition === "attacking-midfielder") {
+      CAM.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
+      });
+    } else if (item.playerPosition === "left-winger") {
+      LW.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
     } else if (item.playerPosition === "center-forward") {
-      ST.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+      ST.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
     } else if (item.playerPosition === "right-winger") {
-      RW.forEach(element => {
-        element.innerHTML = generatePlayerCard(item);
+      RW.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
+      });
+    } else if (item.playerPosition === "left-back") {
+      LB.forEach((element) => {
+        element.innerHTML = generatePlayer(item);
       });
     } else {
-      GK.forEach(element => {
-        element.innerHTML = generateGoalCard(item);
-      });
+      console.log("hello world");
     }
-  })
-    
-  
-  
-
-
+  });
 }
 
-function generatePlayerCard(item) {
+function generatePlayer(item) {
   return `
     <div class="top-section">
       <div>
@@ -305,7 +292,7 @@ function generatePlayerCard(item) {
   `;
 }
 
-function generateGoalCard(item) {
+function generateGoal(item) {
   return `
     <div class="top-section">
       <div>
@@ -346,16 +333,3 @@ function generateGoalCard(item) {
     </div>
   `;
 }
-
-// Exemple d'utilisation de la fonction
-function renderPlayers(players, targetElements) {
-  players.forEach(item => {
-    targetElements.forEach(element => {
-      element.innerHTML = generatePlayerCard(item);
-    });
-  });
-}
-
-
-
-

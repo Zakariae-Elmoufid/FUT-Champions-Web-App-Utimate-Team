@@ -62,14 +62,16 @@ body {
     align-items: center;
   }
 }
+
 .image {
   background-image: url("../images/stadium_background.webp");
-  width: 700px;
-  height: 1000px;
+  width: 650px;
+  height: auto;
   background-size: contain;
   background-repeat: no-repeat;
   padding: 20px;
 }
+
 /* @media (max-width: 768px) {
     .image{
       width: 500px; 
@@ -91,7 +93,7 @@ body {
   display: flex;
   justify-content: space-around;
 }
-.image .cart {
+.cart {
   width: 90px;
   min-height: 120px;
   background-image: url("../images/card.png");
@@ -106,8 +108,8 @@ body {
   justify-content: center;
   text-align: center;
 }
-.image .cart::after {
-  content: attr(data-position);
+ .cart::after {
+  content: attr(id);
   position: absolute;
   width: fit-content;
   padding: 3px;
@@ -118,20 +120,26 @@ body {
   left: 39%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 900px){
+  .image {
+    width: 650px;
+  }
+  
+}
+@media (max-width:  600px) {
   .image {
     width: 400px;
   }
-  .image .cart {
+  .cart {
     width: 50px;
     min-height: 70px;
   }
-  .image .cart::after {
-    top: 86%;
-    left: 25%;
+  .cart::after {
+    top: 82%;
+    left: 38%;
     font-size: 5px;
-    padding: 2px;
-  }
+    padding: 3px;
+}
 }
 
 .cart .top-section {
@@ -195,6 +203,12 @@ body {
   width: 15px;
   height: 10px;
 }
+.replacements {
+  display: flex;
+  flex-wrap: wrap;
+  width: 650px;
+ 
+}
 
 @media (max-width: 500px) {
   .cart .top-section {
@@ -254,7 +268,13 @@ body {
     width: 10px;
     height: 5px;
   }
-}
+  .replacements {
+    padding: 10px 30px; 
+     width: 400px; 
+    }
+  }
+ 
+
 
 .form-container {
   background-color: #9d949466;

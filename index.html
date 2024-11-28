@@ -10,32 +10,40 @@
 
 <body class="main-bg">
     <section class="main-section container">
-        <div class="image ">
+        <div class="play">
+            <div class="image ">
 
-            <div class="attack ">
-                <div class="cart lw" data-position="LW"></div>
-                <div class="cart st " data-position="ST"></div>
-                <div class="cart rw " data-position="RW"></div>
-            </div>
-            
-            <div class="midfield ">
-                <div class="cart cdm " data-position="CDM"></div>
-                <div class="cart mc " data-position="CM"></div>
-                <div class="cart cam " data-position="CAM"></div>
+                <div class="attack ">
+                    <div class="cart lw"  id="LW"></div>
+                    <div class="cart st " id="ST"></div>
+                    <div class="cart rw " id="RW"></div>
+                </div>
+                
+                <div class="midfield ">
+                    <div class="cart cdm " id="CDM"></div>
+                    <div class="cart mc " id="CM"></div>
+                    <div class="cart cam " id="CAM"></div>
+                </div>
+    
+                <div class="defense">
+                    <div class="cart lb " id="LB"></div>
+                    <div class="cart cb " id="CBR"></div>
+                    <div class="cart cb " id="CBL"></div>
+                    <div class="cart rb " id="RB"></div>
+                </div>
+    
+                <div class="goal ">
+                    <div class="cart gk " id="GK"></div>
+                </div>
+                
             </div>
 
-            <div class="defense">
-                <div class="cart lb " data-position="LB"></div>
-                <div class="cart cb " data-position="CBR"></div>
-                <div class="cart cb " data-position="CBL"></div>
-                <div class="cart rb " data-position="RB"></div>
+            <div id="replacement" class="replacements">
+               
             </div>
 
-            <div class="goal ">
-                <div class="cart gk " data-position="GK"></div>
-            </div>
-            
         </div>
+        
         <div class="form-container">
             <h2>Player Form</h2>
             <form id="paginatedForm">
@@ -98,20 +106,20 @@
                             
                             <!-- Defenders -->
                              <option value="gk" style="display: none;">select</option>
-                            <option value="left-back">Left Back (LB)</option>
-                            <option value="center-back-left">Center Back Left (CBL)</option>
-                            <option value="center-back-right">Center Back Right (CBR)</option>
-                            <option value="right-back">Right Back (RB)</option>
+                            <option value="LB">Left Back (LB)</option>
+                            <option value="CBL">Center Back Left (CBL)</option>
+                            <option value="CBR">Center Back Right (CBR)</option>
+                            <option value="RB">Right Back (RB)</option>
                         
                             <!-- Midfielders -->
-                            <option value="defensive-midfielder">Defensive Midfielder (CDM)</option>
-                            <option value="center-midfielder">Center Midfielder (CM)</option>
-                            <option value="attacking-midfielder">Attacking Midfielder (CAM)</option>
+                            <option value="CDM">Defensive Midfielder (CDM)</option>
+                            <option value="CM">Center Midfielder (CM)</option>
+                            <option value="CAM">Attacking Midfielder (CAM)</option>
                         
                             <!-- Forwards -->
-                            <option value="left-winger">Left Winger (LW)</option>
-                            <option value="center-forward">Center Forward (ST)</option>
-                            <option value="right-winger">Right Winger (RW)</option>
+                            <option value="LW">Left Winger (LW)</option>
+                            <option value="ST">Center Forward (ST)</option>
+                            <option value="RW">Right Winger (RW)</option>
                     
                         </select>
                         
@@ -163,7 +171,7 @@
         </div>
     </section>
 
-    se  
+    
 
      <script src="assets/script/main.js"></script>
 

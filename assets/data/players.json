@@ -1,0 +1,37 @@
+[
+    
+      {
+        "name": "Lionel Messi",
+        "photo": "https://cdn.sofifa.net/players/158/023/25_120.png",
+        "position": "RW",
+        "nationality": "Argentina",
+        "flag": "https://cdn.sofifa.net/flags/ar.png",
+        "club": "Inter Miami",
+        "logo": "https://cdn.sofifa.net/meta/team/239235/120.png",
+        "rating": 93,
+        "pace": 85,
+        "shooting": 92,
+        "passing": 91,
+        "dribbling": 95,
+        "defending": 35,
+        "physical": 65
+      },
+     
+      {
+        "name": "Jan Oblak",
+        "photo": "https://cdn.sofifa.net/players/200/389/25_120.png",
+        "position": "GK",
+        "nationality": "Slovenia",
+        "flag": "https://cdn.sofifa.net/flags/si.png",
+        "club": "Atletico Madrid",
+        "logo": "https://cdn.sofifa.net/meta/team/7980/120.png",
+        "rating": 91,
+        "diving": 89,
+        "handling": 90,
+        "kicking": 78,
+        "reflexes": 92,
+        "speed": 50,
+        "positioning": 88
+      }
+    ]      
+    

@@ -6,6 +6,13 @@ const playerFields = document.getElementById("playerFields");
 const goalkeeperFields = document.getElementById("goalkeeperFields");
 let currentSection = 0;
 
+let players = JSON.parse(localStorage.getItem("players")) || [];
+
+// Fonction pour sauvegarder les joueurs dans localStorage
+function saveToLocalStorage() {
+  localStorage.setItem("players", JSON.stringify(players));
+}
+
 function updateForm() {
   // Afficher la section actuelle
   sections.forEach((section, index) => {
@@ -129,6 +136,7 @@ playerType.addEventListener("change", updateForm);
 updateForm();
 
 function saveData() {
+
   // Section 1
   const nameValue = document.getElementById("name").value;
   const photoValue = document.getElementById("photo").value;
@@ -155,8 +163,7 @@ function saveData() {
 
   // Afficher les valeurs dans la console pour vérification
 
-  let players = [];
-
+  
   let player = {
     name: nameValue,
     photo: photoValue,
@@ -166,7 +173,7 @@ function saveData() {
     logo: logoValue,
     rating: ratingValue,
     typePlayer: typePlayerValue,
-    playerPosition: playerPositionValue,
+    position: playerPositionValue,
     pace: paceValue,
     shooting: shootingValue,
     dribbling: dribblingValue,
@@ -176,67 +183,111 @@ function saveData() {
     reflexes: reflexesValue,
     physical: physicalValue,
   };
+   
+
   players.push(player);
-  console.log(player.playerPosition);
+  saveToLocalStorage();
+  displayPlayers([player]);
+}
+
+function displayPlayers(players){  
 
 
-  const LW = document.querySelectorAll('[data-position="LW"]');
-  const ST = document.querySelectorAll('[data-position="ST"]');
-  const RW = document.querySelectorAll('[data-position="RW"]');
-  const CDM = document.querySelectorAll('[data-position="CDM"]');
-  const CM = document.querySelectorAll('[data-position="CM"]');
-  const CAM = document.querySelectorAll('[data-position="CAM"]');
-  const LB = document.querySelectorAll('[data-position="LB"]');
-  const CBR = document.querySelectorAll('[data-position="CBR"]');
-  const CBL = document.querySelectorAll('[data-position="CBL"]');
-  const RB = document.querySelectorAll('[data-position="RB"]');
-  const GK = document.querySelectorAll('[data-position="GK"]');
+  const LW = document.getElementById('LW');
+  const ST = document.getElementById('ST');
+  const RW = document.getElementById('RW');
+  const CDM = document.getElementById('CDM');
+  const CM = document.getElementById('CM');
+  const CAM = document.getElementById('CAM');
+  const LB = document.getElementById('LB');
+  const CBR = document.getElementById('CBR');
+  const CBL = document.getElementById('CBL');
+  const RB = document.getElementById('RB');
+  const GK = document.getElementById('GK');
+
+  
 
   players.forEach((item) => {
-    if (item.playerPosition === "gk") {
-      GK.forEach((element) => {
-        element.innerHTML += generateGoal(item);
-      });
-    } else if (item.playerPosition === "center-back-left") {
-      CBL.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "center-back-right") {
-      CBR.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "right-back") {
-      RB.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "defensive-midfielder") {
-      CDM.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "center-midfielder") {
-      CM.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "attacking-midfielder") {
-      CAM.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "left-winger") {
-      LW.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "center-forward") {
-      ST.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "right-winger") {
-      RW.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
-    } else if (item.playerPosition === "left-back") {
-      LB.forEach((element) => {
-        element.innerHTML = generatePlayer(item);
-      });
+    if (item.position === "gk" ) {
+      if(!GK.classList.contains("exest")){
+        GK.innerHTML = generateGoal(item);
+        GK.classList.add("exest")
+      }else{
+        remplacement(item);
+      }
+      
+    }  else if (item.position === "LB") {
+      if(!LB.classList.contains("exest")){
+        LB.innerHTML = generateGoal(item);
+        LB.classList.add("exest")
+      }else{
+        remplacement(item);
+      }    
+    }
+    else if (item.position === "CBL") {
+      if(!CBL.classList.contains("exest")){
+        CBL.innerHTML = generateGoal(item);
+        CBL.classList.add("exest")
+      }else{
+        remplacement(item);
+      }
+    } else if (item.position === "CBR") {
+      if(!CBR.classList.contains("exest")){
+        CBR.innerHTML = generateGoal(item);
+        CBR.classList.add("exest")
+      }else{
+        remplacement(item);
+      } 
+    } else if (item.position === "RB") {
+      if(!RB.classList.contains("exest")){
+        RB.innerHTML = generateGoal(item);
+        RB.classList.add("exest")
+      }else{
+        remplacement(item);
+      }
+    } else if (item.position === "CDM") {
+      if(!CDM.classList.contains("exest")){
+        CDM.innerHTML = generateGoal(item);
+        CDM.classList.add("exest")
+      }else{
+        remplacement(item);
+      }    
+    } else if (item.position === "CM") {
+      if(!CM.classList.contains("exest")){
+        CM.innerHTML = generateGoal(item);
+        CM.classList.add("exest")
+      }else{
+        remplacement(item);
+      }    
+    } else if (item.position === "CAM") {
+      if(!CAM.classList.contains("exest")){
+        CAM.innerHTML = generateGoal(item);
+        CAM.classList.add("exest")
+      }else{
+        remplacement(item);
+      }    
+    } else if (item.position === "LW") {
+      if(!LW.classList.contains("exest")){
+        LW.innerHTML = generateGoal(item);
+        LW.classList.add("exest")
+      }else{
+        remplacement(item);
+      }    
+    } else if (item.position === "ST") {
+      if(!ST.classList.contains("exest")){
+        ST.innerHTML = generateGoal(item);
+        ST.classList.add("exest")
+      }else{
+        remplacement(item);
+      }    
+    } else if (item.position === "RW") {
+      if(!RW.classList.contains("exest")){
+        RW.innerHTML = generateGoal(item);
+        RW.classList.add("exest")
+      }else{
+        remplacement(item);
+      }    
+    
     } else {
       console.log("hello world");
     }
@@ -333,3 +384,19 @@ function generateGoal(item) {
     </div>
   `;
 }
+
+function remplacement(item) {
+  const replacement = document.getElementById('replacement');
+  let myDiv =document.createElement('div');
+        myDiv.classList.add('cart');
+        myDiv.innerHTML = generateGoal(item);
+        let idPositition = item.position;
+        console.log(idPositition);
+        myDiv.setAttribute("id",`${item.position}`)
+        replacement.appendChild(myDiv); 
+        return replacement;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  displayPlayers(players);
+});

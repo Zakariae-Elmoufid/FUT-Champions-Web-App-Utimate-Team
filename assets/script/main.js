@@ -343,7 +343,7 @@ function generatePlayer(item) {
     <!-- Drapeau et club -->
     <div class="bottom-section">
       <img src="${item.flag}" alt="Flag" class="icon">
-      <img src="${item.club}" alt="Club">
+      <img src="${item.logo}" alt="Club">
     </div>
   `;
 }
@@ -388,8 +388,8 @@ function generateGoal(item) {
     
     <!-- Drapeau et club -->
     <div class="bottom-section">
-      <img src="${item.flag}" alt="Flag" class="icon">
-      <img src="${item.club}" alt="Club">
+      <img src="${item.flag}" alt="Flag" >
+      <img src="${item.logo}" alt="Club">
     </div>
   `;
 }

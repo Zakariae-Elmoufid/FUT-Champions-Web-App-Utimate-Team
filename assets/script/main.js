@@ -1,3 +1,4 @@
+
 const sections = document.querySelectorAll(".form-section");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -398,10 +399,14 @@ function generateGoal(item) {
   `;
 }
 
-function modal(item) {
+function modalGoal(item, ) {
+  console.log("hello");
+  console.log(item);
+  console.log(playerOnField);
+  console.log(replacement);
   return `
   <div class ="icons">
-    <i class='bx bx-revision add' id="add" data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+    <i class='bx bx-revision add' id="add"  ></i>
    </div>
    
    <div class="top-section">
@@ -444,6 +449,60 @@ function modal(item) {
  `;
 }
 
+function modalplayer(item){
+  return `
+    <div class ="icons">
+     <i class='bx bx-revision add' id="add"  ></i>
+
+    </div>
+     
+    <div class="top-section">
+      <div>
+        <div class="rating">${item.rating}</div>
+        <div class="nationality">${item.nationality}</div>
+      </div>
+      
+      <!-- Image du joueur -->
+      <div class="player-img">
+        <img src="${item.photo}" alt="${item.name}">
+      </div>
+    </div>
+    
+    <!-- Nom du joueur -->
+    <div class="name">${item.name}</div>
+    
+    <!-- Statistiques -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-title">DRI</span>
+        <span class="stat-value">${item.dribbling}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-title">DEF</span>
+        <span class="stat-value">${item.defending}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-title">PHY</span>
+        <span class="stat-value">${item.physical}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-title">PAC</span>
+        <span class="stat-value">${item.pace}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-title">SHOT</span>
+        <span class="stat-value">${item.shooting}</span>
+      </div>
+    </div>
+    
+    <!-- Drapeau et club -->
+    <div class="bottom-section">
+      <img src="${item.flag}" alt="Flag" class="icon">
+      <img src="${item.logo}" alt="Club">
+    </div>
+  `;
+}
+
 function remplacement(item) {
   const replacement = document.getElementById('replacement');
   let myDiv =document.createElement('div');
@@ -469,46 +528,73 @@ function removePlayer(id){
 
 function handleClick(element) {
   const position = element.getAttribute('data-position');
-  console.log('Position sélectionnée:', position);
   const id = parseInt(element.getAttribute('data-id'),10) 
-  console.log('Position sélectionnée:', position, 'ID:', id);
   changePlayers(position, id);
 }
 
 
 
-function changePlayers(position ,id) {
-  const change = document.getElementById('change');
+function changePlayers(position, id) {
+  const playerOnField = players.find(player => player.id === id);
+ 
+  const cartChange = document.getElementById('cart-change');
+  const creatbutton = document.createElement('button');
+  creatbutton.textContent = "confirm"; 
+  cartChange.appendChild(creatbutton);
+
+  const replacementPlayers = players.filter(player => player.position === position && player.id !== id);
+  
+  const changeContainer = document.getElementById('change');
   const changePlayer = document.getElementById('change-player');
   changePlayer.classList.remove('hidden');
+  
+  changeContainer.innerHTML = '';
+  
+  replacementPlayers.forEach(replacement => {
+    // const playerDiv = document.createElement('div');
+    // playerDiv.classList.add('cart');
+    if(replacement.position === "gk"){
+      cartChange.innerHTML = generateGoal(replacement,playerOnField.id,replacement.id);
+    }else{
+      cartChange.innerHTML = generatePlayer(replacement,playerOnField.id,replacement.id);
+    }
+    
+    changeContainer.appendChild(cartChange);
 
- 
 
-
-  const filteredPlayers = players.filter(player => player.position === position && player.id !== id);
-
-  // Affiche les joueurs filtrés
-
-  filteredPlayers.forEach(player => {
-      const myDiv = document.createElement('div');
-      myDiv.classList.add('cart');
-      if(player.position === "gk"){
-        myDiv.innerHTML = modal(player);
-      }else{
-        myDiv.innerHTML = generatePlayer(player);
-      }
-      change.appendChild(myDiv);
-
+    changeBtn.addEventListener('click', () => {
+         confirmReplacement(playerOnField, replacement)
+    })    
   });
 
-  if (filteredPlayers.length === 0) {
-      change.innerHTML = '<p>Aucun joueur trouvé pour cette position.</p>';
-  }
   let  mark = document.getElementById("mark");
   mark.addEventListener('click' , () => {
        changePlayer.classList.add('hidden');
   })
 }
+
+function confirmReplacement(playerId, replacementId) {
+  const playerOnField = players.find(player => player.id === playerId);
+  const replacementPlayer = players.find(player => player.id === replacementId);
+
+  if (playerOnField && replacementPlayer) {
+    // Échanger les positions
+    const tempPosition = playerOnField.position;
+    playerOnField.position = replacementPlayer.position;
+    replacementPlayer.position = tempPosition;
+
+    // Mettre à jour le localStorage
+    saveToLocalStorage();
+
+    // Réactualiser l'affichage
+    displayPlayers(players);
+
+    alert("Le joueur a été remplacé avec succès !");
+  } else {
+    console.error("Joueur ou remplaçant introuvable !");
+  }
+}
+
 
 
 
@@ -588,10 +674,10 @@ function saveChanges(id) {
   document.getElementById("paginatedForm").reset();
   currentSection = 0;
   updateForm();
-
-
-
+  
+  
   alert("Player updated successfully!");
+  location.reload()
 }
 
 
@@ -599,4 +685,4 @@ function saveChanges(id) {
 
 document.addEventListener("DOMContentLoaded", () => {
   displayPlayers(players);
-});
+  });

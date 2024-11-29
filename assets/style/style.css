@@ -150,7 +150,7 @@ body {
 }
 
 .cart .name {
-  font-size: 10px;
+  font-size: 8px;
   color: white;
   font-weight: bold;
   text-align: center;
@@ -189,18 +189,34 @@ body {
   position:relative;
 } */
 .cart .delet {
-  color: var(--main-color);
-  position: absolute;
-  top: 5%;
-  left: 74%;
-  font-size: small;
-  }
-  .cart .add {
-    color: var(--main-color);
+    background-color: var(--main-color);
     position: absolute;
-    top: 5%;
-    left: 10%;
-    font-size: small;
+    color: white;
+    top: 22%;
+    left: 81%;
+    padding: 2px;
+    font-size: 7px;
+    border-radius: 50%;
+}
+  .cart .add {
+    background-color: var(--main-color);
+    position: absolute;
+    color: white;
+    top: 36%;
+    left: 81%;
+    padding: 2px;
+    font-size: 7px;
+    border-radius: 50%;
+  }
+  .cart .up-date {
+    background-color: var(--main-color);
+    position: absolute;
+    color: white;
+    top: 22%;
+    left: 4%;
+    padding: 2px;
+    font-size: 7px;
+    border-radius: 50%;
   }
 .replacements {
   display: flex;
@@ -293,18 +309,36 @@ body {
      width: 400px; 
     }
     .cart .add {
-      color: var(--main-color);
-      position: absolute;
-      top: 4%;
-      left: 10%;
-      font-size: 8px;
-  }
+      color: #fff;
+        background-color: var(--main-color);
+        border-radius: 50%;
+        position: absolute;
+        top: 35%;
+        left: 85%;
+        padding: 1px;
+        font-size: 3px;
+    }
+  
   .cart .delet {
-    color: var(--main-color);
+    background-color: var(--main-color);
     position: absolute;
-    top: 4%;
-    left: 76%;
-    font-size: 8px;
+    color: white;
+    top: 25%;
+    left: 85%;
+    padding: 1px;
+    font-size: 3px;
+    border-radius: 50%;
+}
+
+.cart .up-date {
+  background-color: var(--main-color);
+  position: absolute;
+  color: white;
+  top: 22%;
+  left: 5%;
+  padding: 1px;
+  font-size: 3px;
+  border-radius: 50%;
 }
 }
 

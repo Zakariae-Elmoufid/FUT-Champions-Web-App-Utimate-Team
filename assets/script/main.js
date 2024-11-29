@@ -124,6 +124,7 @@ nextBtn.addEventListener("click", () => {
       updateForm();
     } else {
       saveData();
+      saveChanges();
       alert("Form submitted!");
       document.getElementById("paginatedForm").reset();
       currentSection = 0;
@@ -297,8 +298,9 @@ function displayPlayers(players){
 function generatePlayer(item) {
   return `
     <div class ="icons">
-     <i class='add bx bx-plus-medical'data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+     <i class='bx bx-revision add' id="add" data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
     <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
+    <i class='bx bxs-pencil up-date'  onclick="editPlayer(${item.id})"></i>
     </div>
      
     <div class="top-section">
@@ -350,10 +352,12 @@ function generatePlayer(item) {
 
 function generateGoal(item) {
   return `
-    <div  class ="icons">
-     <i class='add bx bx-plus-medical'data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+   <div class ="icons">
+     <i class='bx bx-revision add' id="add" data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
     <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
+    <i class='bx bxs-pencil up-date' onclick="editPlayer(${item.id})" ></i>
     </div>
+    
     <div class="top-section">
       <div>
         <div class="rating">${item.rating}</div>
@@ -394,10 +398,56 @@ function generateGoal(item) {
   `;
 }
 
+function modal(item) {
+  return `
+  <div class ="icons">
+    <i class='bx bx-revision add' id="add" data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+   </div>
+   
+   <div class="top-section">
+     <div>
+       <div class="rating">${item.rating}</div>
+       <div class="nationality">${item.nationality}</div>
+     </div>
+     
+     <!-- Image du joueur -->
+     <div class="player-img">
+       <img src="${item.photo}" alt="${item.name}">
+     </div>
+   </div>
+   
+   <!-- Nom du joueur -->
+   <div class="name">${item.name}</div>
+   
+   <!-- Statistiques -->
+   <div class="stats">
+     <div class="stat">
+       <span class="stat-title">hand</span>
+       <span class="stat-value">${item.handling}</span>
+     </div>
+     <div class="stat">
+       <span class="stat-title">ref</span>
+       <span class="stat-value">${item.reflexes}</span>
+     </div>
+     <div class="stat">
+       <span class="stat-title">div</span>
+       <span class="stat-value">${item.diving}</span>
+     </div>
+     
+   </div>
+   
+   <!-- Drapeau et club -->
+   <div class="bottom-section">
+     <img src="${item.flag}" alt="Flag" >
+     <img src="${item.logo}" alt="Club">
+   </div>
+ `;
+}
+
 function remplacement(item) {
   const replacement = document.getElementById('replacement');
   let myDiv =document.createElement('div');
-
+  
   myDiv.classList.add('cart');
         if(item.position === "gk"){
         myDiv.innerHTML = generateGoal(item);
@@ -420,10 +470,11 @@ function removePlayer(id){
 function handleClick(element) {
   const position = element.getAttribute('data-position');
   console.log('Position sélectionnée:', position);
-  const id = parseInt(element.getAttribute('data-id'),10) // ID du joueur sélectionné
+  const id = parseInt(element.getAttribute('data-id'),10) 
   console.log('Position sélectionnée:', position, 'ID:', id);
   changePlayers(position, id);
 }
+
 
 
 function changePlayers(position ,id) {
@@ -441,19 +492,109 @@ function changePlayers(position ,id) {
   filteredPlayers.forEach(player => {
       const myDiv = document.createElement('div');
       myDiv.classList.add('cart');
-      myDiv.innerHTML = generatePlayer(player);
+      if(player.position === "gk"){
+        myDiv.innerHTML = modal(player);
+      }else{
+        myDiv.innerHTML = generatePlayer(player);
+      }
       change.appendChild(myDiv);
+
   });
 
   if (filteredPlayers.length === 0) {
       change.innerHTML = '<p>Aucun joueur trouvé pour cette position.</p>';
   }
-
   let  mark = document.getElementById("mark");
   mark.addEventListener('click' , () => {
        changePlayer.classList.add('hidden');
   })
 }
+
+
+
+
+function editPlayer(id) {
+  // Trouver le joueur à modifier
+  const playerToEdit = players.find(player => player.id === id);
+  
+  if (!playerToEdit) {
+    alert("Player not found!");
+    return;
+  }
+
+  // Pré-remplir le formulaire avec les données du joueur
+  document.getElementById("name").value = playerToEdit.name || '';
+  document.getElementById("photo").value = playerToEdit.photo || '';
+  document.getElementById("nationality").value = playerToEdit.nationality || '';
+  document.getElementById("flag").value = playerToEdit.flag || '';
+  document.getElementById("club").value = playerToEdit.club || '';
+  document.getElementById("logo").value = playerToEdit.logo || '';
+  document.getElementById("rating").value = playerToEdit.rating || '';
+  document.getElementById("playerType").value = playerToEdit.typePlayer || '';
+  document.getElementById("playerPosition").value = playerToEdit.position || '';
+  document.getElementById("pace").value = playerToEdit.pace || '';
+  document.getElementById("shooting").value = playerToEdit.shooting || '';
+  document.getElementById("dribbling").value = playerToEdit.dribbling || '';
+  document.getElementById("defending").value = playerToEdit.defending || '';
+  document.getElementById("physical").value = playerToEdit.physical || '';
+  document.getElementById("diving").value = playerToEdit.diving || '';
+  document.getElementById("handling").value = playerToEdit.handling || '';
+  document.getElementById("reflexes").value = playerToEdit.reflexes || '';
+
+  // Afficher la section appropriée si nécessaire
+  if (playerToEdit.typePlayer === "player") {
+    playerFields.classList.remove("hidden");
+    goalkeeperFields.classList.add("hidden");
+  } else {
+    playerFields.classList.add("hidden");
+    goalkeeperFields.classList.remove("hidden");
+  }
+
+  // Mettre à jour le bouton Submit pour qu'il gère la modification
+  nextBtn.textContent = "Save Changes";
+  nextBtn.onclick = () => saveChanges(id);
+}
+
+function saveChanges(id) {
+  // Récupérer les nouvelles valeurs du formulaire
+  const updatedPlayer = {
+    id: id, // Garder le même ID
+    name: document.getElementById("name").value,
+    photo: document.getElementById("photo").value,
+    nationality: document.getElementById("nationality").value,
+    flag: document.getElementById("flag").value,
+    club: document.getElementById("club").value,
+    logo: document.getElementById("logo").value,
+    rating: document.getElementById("rating").value,
+    typePlayer: document.getElementById("playerType").value,
+    position: document.getElementById("playerPosition").value,
+    pace: document.getElementById("pace").value,
+    shooting: document.getElementById("shooting").value,
+    dribbling: document.getElementById("dribbling").value,
+    defending: document.getElementById("defending").value,
+    physical: document.getElementById("physical").value,
+    diving: document.getElementById("diving").value,
+    handling: document.getElementById("handling").value,
+    reflexes: document.getElementById("reflexes").value,
+  };
+
+  // Mettre à jour le joueur dans la liste
+  players = players.map(player => player.id === id ? updatedPlayer : player);
+
+  // Sauvegarder les changements
+  saveToLocalStorage();
+
+  // Réinitialiser le formulaire
+  document.getElementById("paginatedForm").reset();
+  currentSection = 0;
+  updateForm();
+
+
+
+  alert("Player updated successfully!");
+}
+
+
 
 
 document.addEventListener("DOMContentLoaded", () => {

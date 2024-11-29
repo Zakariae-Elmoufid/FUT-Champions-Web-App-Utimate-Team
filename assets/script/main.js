@@ -185,11 +185,10 @@ function saveData() {
     reflexes: reflexesValue,
     physical: physicalValue,
   };
-   
   players.push(player);
   saveToLocalStorage();
   displayPlayers([player]);
-
+  
 }
 
 function displayPlayers(players){
@@ -206,7 +205,7 @@ function displayPlayers(players){
   const RB = document.getElementById('RB');
   const GK = document.getElementById('GK');
 
-   console.log(players);
+   
 
   players.forEach((item) => {
     if (item.position === "gk" ) {
@@ -297,6 +296,11 @@ function displayPlayers(players){
 
 function generatePlayer(item) {
   return `
+    <div class ="icons">
+     <i class='add bx bx-plus-medical'data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+    <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
+    </div>
+     
     <div class="top-section">
       <div>
         <div class="rating">${item.rating}</div>
@@ -346,7 +350,10 @@ function generatePlayer(item) {
 
 function generateGoal(item) {
   return `
+    <div  class ="icons">
+     <i class='add bx bx-plus-medical'data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
     <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
+    </div>
     <div class="top-section">
       <div>
         <div class="rating">${item.rating}</div>
@@ -390,10 +397,13 @@ function generateGoal(item) {
 function remplacement(item) {
   const replacement = document.getElementById('replacement');
   let myDiv =document.createElement('div');
-        myDiv.classList.add('cart');
+
+  myDiv.classList.add('cart');
+        if(item.position === "gk"){
         myDiv.innerHTML = generateGoal(item);
-        let idPositition = item.position;
-        console.log(idPositition);
+        }else{
+          myDiv.innerHTML = generatePlayer(item);
+        }
         myDiv.setAttribute("id",`${item.position}`)
         replacement.appendChild(myDiv); 
         return replacement;
@@ -406,6 +416,45 @@ function removePlayer(id){
   saveToLocalStorage();
   location.reload()
 }
+
+function handleClick(element) {
+  const position = element.getAttribute('data-position');
+  console.log('Position sélectionnée:', position);
+  const id = parseInt(element.getAttribute('data-id'),10) // ID du joueur sélectionné
+  console.log('Position sélectionnée:', position, 'ID:', id);
+  changePlayers(position, id);
+}
+
+
+function changePlayers(position ,id) {
+  const change = document.getElementById('change');
+  const changePlayer = document.getElementById('change-player');
+  changePlayer.classList.remove('hidden');
+
+ 
+
+
+  const filteredPlayers = players.filter(player => player.position === position && player.id !== id);
+
+  // Affiche les joueurs filtrés
+
+  filteredPlayers.forEach(player => {
+      const myDiv = document.createElement('div');
+      myDiv.classList.add('cart');
+      myDiv.innerHTML = generatePlayer(player);
+      change.appendChild(myDiv);
+  });
+
+  if (filteredPlayers.length === 0) {
+      change.innerHTML = '<p>Aucun joueur trouvé pour cette position.</p>';
+  }
+
+  let  mark = document.getElementById("mark");
+  mark.addEventListener('click' , () => {
+       changePlayer.classList.add('hidden');
+  })
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   displayPlayers(players);

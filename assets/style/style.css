@@ -121,25 +121,7 @@ body {
 }
 
 @media (max-width: 900px){
-  .image {
-    width: 650px;
-  }
-  
-}
-@media (max-width:  600px) {
-  .image {
-    width: 400px;
-  }
-  .cart {
-    width: 50px;
-    min-height: 70px;
-  }
-  .cart::after {
-    top: 82%;
-    left: 38%;
-    font-size: 5px;
-    padding: 3px;
-}
+ 
 }
 
 .cart .top-section {
@@ -203,12 +185,22 @@ body {
   width: 15px;
   height: 10px;
 }
+/* .cart .icons {
+  position:relative;
+} */
 .cart .delet {
-   color: var(--main-color);
-   position: relative;
-   top: -1%;
-   left: -37%;
-   font-size: small;
+  color: var(--main-color);
+  position: absolute;
+  top: 5%;
+  left: 74%;
+  font-size: small;
+  }
+  .cart .add {
+    color: var(--main-color);
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    font-size: small;
   }
 .replacements {
   display: flex;
@@ -218,6 +210,27 @@ body {
 }
 
 @media (max-width: 500px) {
+
+  .image {
+    width: 650px;
+  }
+  
+}
+@media (max-width:  600px) {
+  .image {
+    width: 400px;
+  }
+  .cart {
+    width: 50px;
+    min-height: 70px;
+  }
+  .cart::after {
+    top: 82%;
+    left: 38%;
+    font-size: 5px;
+    padding: 3px;
+}
+
   .cart .top-section {
     display: flex;
     align-items: center;
@@ -279,8 +292,21 @@ body {
     padding: 10px 30px; 
      width: 400px; 
     }
+    .cart .add {
+      color: var(--main-color);
+      position: absolute;
+      top: 4%;
+      left: 10%;
+      font-size: 8px;
   }
- 
+  .cart .delet {
+    color: var(--main-color);
+    position: absolute;
+    top: 4%;
+    left: 76%;
+    font-size: 8px;
+}
+}
 
 
 .form-container {
@@ -346,3 +372,32 @@ input.error {
   font-size: 12px;
   margin-top: 4px;
 }
+
+
+
+#change-player {
+  position: relative;
+  position: fixed;
+  top: 30%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 500px;
+  height: fit-content;
+  background-color: rgba(17, 24, 39, 0.75); /* Gris foncé avec opacité */
+  padding: 20px;
+  gap: 10px;
+}
+
+#change-player i {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#change { 
+  display: flex;
+  padding: 20px;
+  gap: 10px;
+}
+
+ 

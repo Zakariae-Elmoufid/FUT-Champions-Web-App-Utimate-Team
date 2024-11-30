@@ -399,11 +399,7 @@ function generateGoal(item) {
   `;
 }
 
-function modalGoal(item, ) {
-  console.log("hello");
-  console.log(item);
-  console.log(playerOnField);
-  console.log(replacement);
+function modalGoal(item ) {
   return `
   <div class ="icons">
     <i class='bx bx-revision add' id="add"  ></i>
@@ -536,64 +532,83 @@ function handleClick(element) {
 
 function changePlayers(position, id) {
   const playerOnField = players.find(player => player.id === id);
- 
-  const cartChange = document.getElementById('cart-change');
-  const creatbutton = document.createElement('button');
-  creatbutton.textContent = "confirm"; 
-  cartChange.appendChild(creatbutton);
-
   const replacementPlayers = players.filter(player => player.position === position && player.id !== id);
-  
+
+  // Récupération des éléments du DOM
   const changeContainer = document.getElementById('change');
   const changePlayer = document.getElementById('change-player');
+  const mark = document.getElementById("mark");
+
+  // Afficher la boîte de remplacement
   changePlayer.classList.remove('hidden');
-  
-  changeContainer.innerHTML = '';
-  
+  changeContainer.innerHTML = ''; // Réinitialise le conteneur
+
+  // Ajouter les joueurs de remplacement au conteneur
   replacementPlayers.forEach(replacement => {
-    // const playerDiv = document.createElement('div');
-    // playerDiv.classList.add('cart');
-    if(replacement.position === "gk"){
-      cartChange.innerHTML = generateGoal(replacement,playerOnField.id,replacement.id);
-    }else{
-      cartChange.innerHTML = generatePlayer(replacement,playerOnField.id,replacement.id);
-    }
-    
-    changeContainer.appendChild(cartChange);
+      // Crée un conteneur pour chaque joueur remplaçant
+      const playerDiv = document.createElement('div');
+      playerDiv.classList.add('cart')
+      playerDiv.innerHTML = replacement.position === "gk"
+          ? generateGoal(replacement) // Génère un joueur gardien
+          : generatePlayer(replacement); // Génère un joueur classique
 
+      // Ajoute un bouton pour confirmer le remplacement
+      const confirmButton = document.createElement('button');
+      confirmButton.textContent = 'Confirm';
+      confirmButton.classList.add('btn-confirm');
+      confirmButton.addEventListener('click', () => {
+          confirmReplacement(playerOnField.id, replacement.id);
+          changePlayer.classList.add('hidden'); // Cache la boîte de remplacement après confirmation
+      });
 
-    changeBtn.addEventListener('click', () => {
-         confirmReplacement(playerOnField, replacement)
-    })    
+      // Ajoute le bouton au conteneur du joueur
+      playerDiv.appendChild(confirmButton);
+      changeContainer.appendChild(playerDiv);
   });
 
-  let  mark = document.getElementById("mark");
-  mark.addEventListener('click' , () => {
-       changePlayer.classList.add('hidden');
-  })
+  // Ajoute un événement pour fermer la boîte de remplacement
+  mark.addEventListener('click', () => {
+      changePlayer.classList.add('hidden');
+  });
 }
+
 
 function confirmReplacement(playerId, replacementId) {
   const playerOnField = players.find(player => player.id === playerId);
+
   const replacementPlayer = players.find(player => player.id === replacementId);
 
+  console.log(playerOnField);
+  console.log(replacementPlayer);
+
   if (playerOnField && replacementPlayer) {
-    // Échanger les positions
-    const tempPosition = playerOnField.position;
-    playerOnField.position = replacementPlayer.position;
-    replacementPlayer.position = tempPosition;
+    // Échange toutes les propriétés de manière explicite
+    const temp = { ...playerOnField }; // Copie temporaire des propriétés du joueur sur le terrain
 
-    // Mettre à jour le localStorage
+    // Transférer les propriétés du remplaçant vers le joueur sur le terrain
+    Object.keys(playerOnField).forEach(key => {
+        playerOnField[key] = replacementPlayer[key];
+    });
+
+    // Transférer les propriétés temporaires (originales) vers le remplaçant
+    Object.keys(replacementPlayer).forEach(key => {
+        replacementPlayer[key] = temp[key];
+    });
+
+    // Debugging : Affiche les joueurs après le remplacement
+    console.log("Joueurs après remplacement :", players);
+
+    // Sauvegarde les données et met à jour l'affichage
     saveToLocalStorage();
-
-    // Réactualiser l'affichage
-    displayPlayers(players);
+    location.reload()
 
     alert("Le joueur a été remplacé avec succès !");
+
   } else {
-    console.error("Joueur ou remplaçant introuvable !");
+      console.error("Joueur ou remplaçant introuvable !");
   }
 }
+
 
 
 

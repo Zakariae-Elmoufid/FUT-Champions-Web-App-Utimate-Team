@@ -348,7 +348,7 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  width: 500px;
 }
 .form-container h2 {
   text-align: center;
@@ -438,3 +438,6 @@ input.error {
   gap: 10px;
 }
 
+.btn-confirm {
+  background-color: #e08507;
+}

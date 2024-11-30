@@ -30,10 +30,26 @@ function updateForm() {
     if (playerType.value === "player") {
       playerFields.classList.remove("hidden");
       goalkeeperFields.classList.add("hidden");
+      document.getElementById("diving").value = '10';
+      document.getElementById("handling").value = '10';
+      document.getElementById("reflexes").value = '10';
+      nextBtn.textContent = "Submit" 
     } else if (playerType.value === "goalkeeper") {
       goalkeeperFields.classList.remove("hidden");
       playerFields.classList.add("hidden");
-    }
+      document.getElementById("playerPosition").value = 'gk';
+      document.getElementById("pace").value = '10';
+      document.getElementById("shooting").value ='10';
+      document.getElementById("dribbling").value = '10';
+      document.getElementById("defending").value = '10';
+      document.getElementById("physical").value = '10';
+      nextBtn.textContent = "Submit" 
+
+      }
+  }else if (currentSection === 3){
+    goalkeeperFields.classList.add("hidden");
+    playerFields.classList.add("hidden");
+    
   }
 
   // Update button states
@@ -42,8 +58,7 @@ function updateForm() {
   } else {
     prevBtn.classList.remove("hidden");
   }
-  nextBtn.textContent =
-    currentSection === sections.length - 2 ? "Submit" : "Next";
+ 
 }
 
 function validateInput() {
@@ -53,7 +68,7 @@ function validateInput() {
 
   console.log(currentSection);
 
-  if (currentSection < 2) {
+ 
     inputs.forEach((input) => {
       const errorMessage = input.nextElementSibling;
 
@@ -107,9 +122,10 @@ function validateInput() {
         }
       }
     });
-  }
+  
   return isValid;
 }
+
 
 prevBtn.addEventListener("click", () => {
   if (currentSection > 0) {
@@ -120,7 +136,7 @@ prevBtn.addEventListener("click", () => {
 
 nextBtn.addEventListener("click", () => {
   if (validateInput()) {
-    if (currentSection < sections.length - 2) {
+    if (currentSection < sections.length - 1) {
       currentSection++;
       updateForm();
     } else {
@@ -401,9 +417,7 @@ function generateGoal(item) {
 
 function modalGoal(item ) {
   return `
-  <div class ="icons">
-    <i class='bx bx-revision add' id="add"  ></i>
-   </div>
+ 
    
    <div class="top-section">
      <div>
@@ -445,12 +459,9 @@ function modalGoal(item ) {
  `;
 }
 
-function modalplayer(item){
+function modalPlayer(item){
   return `
-    <div class ="icons">
-     <i class='bx bx-revision add' id="add"  ></i>
-
-    </div>
+  
      
     <div class="top-section">
       <div>
@@ -547,22 +558,22 @@ function changePlayers(position, id) {
   replacementPlayers.forEach(replacement => {
       // Crée un conteneur pour chaque joueur remplaçant
       const playerDiv = document.createElement('div');
-      playerDiv.classList.add('cart')
+      playerDiv.classList.add('cart');
+      playerDiv.setAttribute("id",`${replacement.position}`);
       playerDiv.innerHTML = replacement.position === "gk"
-          ? generateGoal(replacement) // Génère un joueur gardien
-          : generatePlayer(replacement); // Génère un joueur classique
+          ? modalGoal(replacement) // Génère un joueur gardien
+          : modalPlayer(replacement); // Génère un joueur classique
 
       // Ajoute un bouton pour confirmer le remplacement
-      const confirmButton = document.createElement('button');
-      confirmButton.textContent = 'Confirm';
-      confirmButton.classList.add('btn-confirm');
-      confirmButton.addEventListener('click', () => {
+      const confirmButton = document.createElement('i');
+      confirmButton.classList.add('bx', 'bx-check', 'delet');   
+         confirmButton.addEventListener('click', () => {
           confirmReplacement(playerOnField.id, replacement.id);
           changePlayer.classList.add('hidden'); // Cache la boîte de remplacement après confirmation
       });
 
-      // Ajoute le bouton au conteneur du joueur
       playerDiv.appendChild(confirmButton);
+  
       changeContainer.appendChild(playerDiv);
   });
 

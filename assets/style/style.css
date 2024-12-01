@@ -7,13 +7,16 @@
 }
 body {
   background-color: white;
+  width: 100%;
 }
 
 :root {
-  --main-color: #e08507;
-  --secondry-color: ;
-  --background-color: #f0f6fe;
+  --primary-color: #072647; /* Bleu Électrique */
+  --secondary-color: #ff9900; /* Jaune Doré */
+  --text-color: white; /* Texte principal */
+  --background-color: #1e1e2f; /* Fond global */
 }
+
 
 .container {
   padding-left: 15px;
@@ -26,19 +29,26 @@ body {
 .main-bg {
   background-image: url("../images/soccer_field_dark_overlay_and_dark_opaque_shadow_bottom_gradient__.jpeg");
   background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   height: fit-content;
-  width: 100vw;
+  
+  
 }
 
+
 .main-section {
-  margin-top: 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   display: flex;
   align-items: start;
   justify-content: space-between;
+  position: relative;
+  width: 100%;
+  
 }
 
-/* Medium */
+
 
 
 
@@ -50,6 +60,10 @@ body {
   background-repeat: no-repeat;
   padding: 20px;
 }
+.play {
+  animation: slideInLeft 1s ease-in-out;
+}
+
 
 .image .goal {
   display: flex;
@@ -70,7 +84,7 @@ body {
 .cart {
   width: 90px;
   min-height: 120px;
-  background-image: url("../images/card.png");
+  background-image: url("../images/34_fc_pro.png");
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
@@ -81,14 +95,23 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  animation: movement 1s  infinite ease-in-out; 
 }
+
+
+.cart:hover {
+ scale: 1.2;
+}
+
+
  .cart::after {
   content: attr(id);
   position: absolute;
   width: fit-content;
   padding: 3px;
   font-size: 10px;
-  background-color: var(--main-color);
+  background-color: var(--primary-color);
+  color: var(--text-color);
   border-radius: 100%;
   top: 85%;
   left: 39%;
@@ -104,13 +127,13 @@ body {
   gap: 10px;
 }
 .cart .top-section .rating {
-  color: var(--main-color);
+  color: var(--secondary-color);
   font-size: 8px;
 }
 
 .cart .top-section .nationality {
   color: white;
-  background-color: var(--main-color);
+  background-color: var(--secondary-color);
   font-size: 4px;
   font-weight: 200;
   padding: 0 3px;
@@ -162,7 +185,7 @@ body {
   position:relative;
 } */
 .cart .delet {
-    background-color: var(--main-color);
+    background-color: red;
     position: absolute;
     color: white;
     top: 22%;
@@ -172,7 +195,7 @@ body {
     border-radius: 50%;
 }
   .cart .add {
-    background-color: var(--main-color);
+    background-color: var(--secondary-color);
     position: absolute;
     color: white;
     top: 36%;
@@ -182,7 +205,7 @@ body {
     border-radius: 50%;
   }
   .cart .up-date {
-    background-color: var(--main-color);
+    background-color: rgb(193, 27, 118);
     position: absolute;
     color: white;
     top: 22%;
@@ -190,6 +213,11 @@ body {
     padding: 2px;
     font-size: 7px;
     border-radius: 50%;
+  }
+  .cart .delet:hover,
+  .cart .add:hover,
+  .cart .up-date:hover {
+    transform: scale(1.5);
   }
 .replacements {
   display: flex;
@@ -207,6 +235,8 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   width: 500px;
+  margin: 10px auto;
+  animation: slideInRight 1s ease-in-out;
 }
 .form-container h2 {
   text-align: center;
@@ -232,23 +262,23 @@ body {
 .hidden {
   display: none;
 }
-.buttons {
+.btns {
   margin-top: 20px;
   text-align: center;
 }
-button {
+.btn {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: var(--secondary-color);
   color: white;
   font-size: 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-button:hover {
+.btn:hover {
   background-color: #0056b3;
 }
-button:disabled {
+.btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
@@ -305,4 +335,102 @@ input.error {
     position: absolute;
     left: 60%;
     top: 37%;
+}
+
+.btn:hover {
+  
+  transform: translateY(-5px);
+}
+
+/* Form Styling */
+.contact-form,
+.player-details {
+  background: #3e3e50;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 1s ease-in-out;
+}
+
+.contact-form .form-group,
+.player-stats ul {
+  margin-bottom: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #2c2c3a;
+  color: white;
+  font-size: 14px;
+  transition: border 0.3s ease, transform 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #ff6b6b;
+  transform: scale(1.02);
+}
+
+/* Player Card */
+.player-card {
+  text-align: center;
+  animation: bounceIn 1s ease-in-out;
+}
+
+.player-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #ff6b6b;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.player-card img:hover {
+  transform: scale(1.1);
+}
+
+.player-card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.player-stats ul {
+  list-style: none;
+  padding: 0;
+}
+
+.player-stats li {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+      transform: scale(0.8);
+      opacity: 0.6;
+  }
+  50% {
+      transform: scale(1.1);
+      opacity: 1;
+  }
+  100% {
+      transform: scale(1);
+  }
 }

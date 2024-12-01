@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/hero.css">
+    <link rel="stylesheet" href="../style/responsive.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>FUT Champions</title>
+
+</head>
+<body class="main-bg">
+
+    <header class="header">
+
+        <div class="logo-img">
+            <img src="../images/logo .png" alt="Football Logo" class="logo">
+        </div>    
+
+            <nav class="nav">
+                <a href="../../index.html" >Home</a>
+                <a href="formation.html" class="nav-link">Formations</a>
+                <a href="player.html" >Players</a>
+                <a href="contact.html" >Contact</a>
+            </nav>
+            <div class="btns">
+                <button class="btn" >sine up</button>
+                <button class="btn">log in</button>
+            </div>
+        
+    </header>
+<div >
+    <section class="main-section container">
+        <div class="play  container">
+            <div class="image">
+
+                <div class="attack ">
+                    <div class="cart lw"  id="LW"></div>
+                    <div class="cart st " id="ST"></div>
+                    <div class="cart rw " id="RW"></div>
+                </div>
+                
+                <div class="midfield ">
+                    <div class="cart cdm " id="CDM"></div>
+                    <div class="cart mc " id="CM"></div>
+                    <div class="cart cam " id="CAM"></div>
+                </div>
+    
+                <div class="defense">
+                    <div class="cart lb " id="LB"></div>
+                    <div class="cart cb " id="CBR"></div>
+                    <div class="cart cb " id="CBL"></div>
+                    <div class="cart rb " id="RB"></div>
+                </div>
+    
+                <div class="goal ">
+                    <div class="cart gk " id="GK"></div>
+                </div>
+                
+            </div>
+
+            <div id="replacement" class="replacements">
+               
+            </div>
+
+        </div>
+        
+        <div class="form-container" >
+            <h2>Player Form</h2>
+            <form id="paginatedForm">
+             
+
+                <!-- Section 1 -->
+                <div class="form-section hidden">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text"  id="name" placeholder="Enter player's name">
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Photo</label>
+                        <input type="url" id="photo" placeholder="Enter photo URL" pattern="https?://.*.(jpg|jpeg|png|gif|webp)">
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <input type="text" id="nationality" placeholder="Enter nationality">
+                    </div>
+                    <div class="form-group">
+                        <label for="flag">National Flag</label>
+                        <input type="url" id="flag">
+                    </div>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="form-section hidden">
+                    <div class="form-group">
+                        <label for="club">Club</label>
+                        <input type="text" id="club" placeholder="Enter club name">
+                    </div>
+                    <div class="form-group">
+                        <label for="logo">Club Logo</label>
+                        <input type="url" id="logo">
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <input type="number" id="rating" placeholder="Enter rating">
+                    </div>
+                      <!-- Type Selection -->
+                   
+                    <div class="form-group">
+                        <label for="playerType">Select Player Type:</label>
+                        <select id="playerType">
+                            <option value=""></option>
+                            <option value="player">Field Player</option>
+                            <option value="goalkeeper">Goalkeeper</option>
+                        </select>
+                    </div>
+                
+                </div>
+
+                 <!-- Section 3 (Goalkeeper-specific) -->
+                <div class="form-section hidden" id="goalkeeperFields">
+                    <div class="form-group">
+                        <label for="diving">Diving</label>
+                        <input type="number"  id="diving" placeholder="Enter diving score">
+                    </div>
+                    <div class="form-group">
+                        <label for="handling">Handling</label>
+                        <input type="number"  id="handling" placeholder="Enter handling score">
+                    </div>
+                    <div class="form-group">
+                        <label for="reflexes">Reflexes</label>
+                        <input type="number"  id="reflexes" placeholder="Enter reflexes score">
+                    </div>
+                </div>
+
+                <!-- Section 3 (Player-specific) -->
+                <div class="form-section hidden" id="playerFields">
+                    <div class="form-group">
+                        <label for="playerPosition">position</label>
+                
+                        <select id="playerPosition">
+                            
+                            <!-- Defenders -->
+                             <option value="">select</option>
+                             <option value="gk" style="display: none;"></option>
+                            <option value="LB">Left Back (LB)</option>
+                            <option value="CBL">Center Back Left (CBL)</option>
+                            <option value="CBR">Center Back Right (CBR)</option>
+                            <option value="RB">Right Back (RB)</option>
+                        
+                            <!-- Midfielders -->
+                            <option value="CDM">Defensive Midfielder (CDM)</option>
+                            <option value="CM">Center Midfielder (CM)</option>
+                            <option value="CAM">Attacking Midfielder (CAM)</option>
+                        
+                            <!-- Forwards -->
+                            <option value="LW">Left Winger (LW)</option>
+                            <option value="ST">Center Forward (ST)</option>
+                            <option value="RW">Right Winger (RW)</option>
+                    
+                        </select>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="pace">Pace</label>
+                        <input type="number"  id="pace" placeholder="Enter pace score">
+                    </div>
+                    <div class="form-group">
+                        <label for="shooting">Shooting</label>
+                        <input type="number"  id="shooting" placeholder="Enter shooting score">
+                    </div>
+                    <div class="form-group">
+                        <label for="dribbling">Dribbling</label>
+                        <input type="number" id="dribbling" placeholder="Enter dribbling score">
+                    </div>
+                    <div class="form-group">
+                        <label for="defending">Defending</label>
+                        <input type="number" id="defending" placeholder="Enter defending score">
+                    </div>
+                    <div class="form-group">
+                        <label for="physical">Physical</label>
+                        <input type="number" id="physical" placeholder="Entre physical score">
+                    </div>
+                   
+                </div>
+
+                
+
+                <div class="buttons">
+                    <button class="btn" type="button" id="prevBtn">Previous</button>
+                    <button class="btn" type="button" id="nextBtn">Next</button>
+                </div>
+            </form>
+        </div>
+    </section>
+ 
+     <section class="container hidden" id="change-player"> 
+        <div class="icon">
+         
+            <button id="mark">X</button>
+        </div>
+       <div id="change">
+         
+            <div  id="cart-change">
+            </div>
+         
+       </div>
+    </section>
+
+    
+</div>
+
+
+<footer class="footer">
+    <p>&copy; 2024 Football Manager. All rights reserved.</p>
+    <nav class="footer-nav">
+        <a href="hero" class="nav-link">Home</a>
+        <a href="assets/pages/formation.html" >Formations</a>
+        <a href="assets/pages/player.html" >Players</a>
+        <a href="assets/pages/contact.html" >Contact</a>
+    </nav>
+</footer>
+     <script  src="../script/main.js" ></script>
+
+</body>
+
+</html>

@@ -1,4 +1,3 @@
-
 const sections = document.querySelectorAll(".form-section");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -9,7 +8,9 @@ let currentSection = 0;
 
 let players = JSON.parse(localStorage.getItem("players")) || [];
 
-// Fonction pour sauvegarder les joueurs dans localStorage
+
+
+
 function saveToLocalStorage() {
   localStorage.setItem("players", JSON.stringify(players));
 }
@@ -31,7 +32,6 @@ function updateForm() {
       playerFields.classList.remove("hidden");
       goalkeeperFields.classList.add("hidden");
       currentSection++;
-
       document.getElementById("diving").value = '10';
       document.getElementById("handling").value = '10';
       document.getElementById("reflexes").value = '10';
@@ -622,11 +622,6 @@ function confirmReplacement(playerId, replacementId) {
   }
 }
 
-
-
-
-
-
 function editPlayer(id) {
   // Trouver le joueur à modifier
   const playerToEdit = players.find(player => player.id === id);
@@ -673,9 +668,9 @@ function editPlayer(id) {
 }
 
 function saveChanges(id) {
-  // Récupérer les nouvelles valeurs du formulaire
+  
   const updatedPlayer = {
-    id: id, // Garder le même ID
+    id: id, 
     name: document.getElementById("name").value,
     photo: document.getElementById("photo").value,
     nationality: document.getElementById("nationality").value,
@@ -710,7 +705,6 @@ function saveChanges(id) {
   alert("Player updated successfully!");
   location.reload()
 }
-
 
 
 

@@ -30,6 +30,8 @@ function updateForm() {
     if (playerType.value === "player") {
       playerFields.classList.remove("hidden");
       goalkeeperFields.classList.add("hidden");
+      currentSection++;
+
       document.getElementById("diving").value = '10';
       document.getElementById("handling").value = '10';
       document.getElementById("reflexes").value = '10';
@@ -136,7 +138,7 @@ prevBtn.addEventListener("click", () => {
 
 nextBtn.addEventListener("click", () => {
   if (validateInput()) {
-    if (currentSection < sections.length - 1) {
+    if (currentSection < sections.length - 2) {
       currentSection++;
       updateForm();
     } else {
@@ -652,6 +654,9 @@ function editPlayer(id) {
   document.getElementById("diving").value = playerToEdit.diving || '';
   document.getElementById("handling").value = playerToEdit.handling || '';
   document.getElementById("reflexes").value = playerToEdit.reflexes || '';
+
+  sections[0].classList.remove('hidden');
+  sections[1].classList.remove('hidden');
 
   // Afficher la section appropriée si nécessaire
   if (playerToEdit.typePlayer === "player") {

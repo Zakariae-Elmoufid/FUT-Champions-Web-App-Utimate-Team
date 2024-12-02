@@ -108,13 +108,14 @@ body {
   content: attr(id);
   position: absolute;
   width: fit-content;
+  border: 1px solid var(--secondary-color);
   padding: 3px;
   font-size: 10px;
   background-color: var(--primary-color);
   color: var(--text-color);
   border-radius: 100%;
-  top: 85%;
-  left: 39%;
+  top: 83%;
+  left: 37%;
 }
 
 
@@ -283,12 +284,12 @@ body {
   cursor: not-allowed;
 }
 
-/* Champ invalide */
+
 input.error {
   border: 1px solid red;
 }
 
-/* Message d'erreur */
+
 .error-message {
   color: red;
   font-size: 12px;

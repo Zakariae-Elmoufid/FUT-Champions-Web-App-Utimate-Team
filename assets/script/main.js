@@ -16,7 +16,7 @@ function saveToLocalStorage() {
 }
 
 function updateForm() {
-  // Afficher la section actuelle
+  
   sections.forEach((section, index) => {
     if (index === currentSection) {
       section.classList.remove("hidden");
@@ -45,8 +45,7 @@ function updateForm() {
       document.getElementById("dribbling").value = '10';
       document.getElementById("defending").value = '10';
       document.getElementById("physical").value = '10';
-      nextBtn.textContent = "Submit" 
-
+      nextBtn.textContent = "Submit" ;
       }
   }else if (currentSection === 3){
     goalkeeperFields.classList.add("hidden");
@@ -67,20 +66,13 @@ function validateInput() {
   const inputs = sections[currentSection].querySelectorAll("input, select");
 
   let isValid = true;
-
-  console.log(currentSection);
-
  
     inputs.forEach((input) => {
-      const errorMessage = input.nextElementSibling;
 
       if (input.value.trim() === "") {
         input.classList.add("error");
 
-        if (
-          !errorMessage ||
-          !errorMessage.classList.contains("error-message")
-        ) {
+        if (!input.nextElementSibling || !input.nextElementSibling.classList.contains("error-message")) {
           const error = document.createElement("span");
           error.textContent = `${input.previousElementSibling.textContent} is required`;
           error.classList.add("error-message");
@@ -91,14 +83,14 @@ function validateInput() {
       } else {
         input.classList.remove("error");
 
-        if (errorMessage && errorMessage.classList.contains("error-message")) {
-          errorMessage.remove();
+        if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-message")) {
+          input.nextElementSibling.remove();
         }
       }
 
       if (input.type === "number") {
-        const value = parseFloat(input.value);
-        if (isNaN(value) || value < 10 || value > 99) {
+        const value = input.value;
+        if (value < 10 || value > 99) {
           input.classList.add("error");
 
           if (
@@ -186,7 +178,7 @@ function saveData() {
 
   
   let player = {
-    id: Date.now(),
+    id: players.length -1 ,
     name: nameValue,
     photo: photoValue,
     nationality: nationalityValue,
@@ -206,6 +198,7 @@ function saveData() {
     physical: physicalValue,
   };
   players.push(player);
+
   saveToLocalStorage();
   displayPlayers([player]);
   
@@ -308,16 +301,14 @@ function displayPlayers(players){
         remplacement(item);
       }    
     
-    } else {
-      console.log("hello world");
-    }
+    } 
   });
 }
 
 function generatePlayer(item) {
   return `
     <div class ="icons">
-     <i class='bx bx-revision add' id="add" data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+     <i class='bx bx-revision add'  data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
     <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
     <i class='bx bxs-pencil up-date'  onclick="editPlayer(${item.id})"></i>
     </div>
@@ -419,8 +410,6 @@ function generateGoal(item) {
 
 function modalGoal(item ) {
   return `
- 
-   
    <div class="top-section">
      <div>
        <div class="rating">${item.rating}</div>
@@ -514,7 +503,7 @@ function modalPlayer(item){
 
 function remplacement(item) {
   const replacement = document.getElementById('replacement');
-  let myDiv =document.createElement('div');
+  let myDiv = document.createElement('div');
   
   myDiv.classList.add('cart');
         if(item.position === "gk"){
@@ -530,7 +519,7 @@ function remplacement(item) {
 function removePlayer(id){
   players = players.filter(player => player.id !== id);
 
-  // Sauvegarder les modifications dans localStorage
+
   saveToLocalStorage();
   location.reload()
 }
@@ -706,7 +695,7 @@ function saveChanges(id) {
   location.reload()
 }
 
-
+console.log(players);
 
 document.addEventListener("DOMContentLoaded", () => {
   displayPlayers(players);

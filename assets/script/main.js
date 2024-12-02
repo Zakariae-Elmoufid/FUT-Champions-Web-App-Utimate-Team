@@ -135,8 +135,8 @@ nextBtn.addEventListener("click", () => {
       updateForm();
     } else {
       saveData();
-      saveChanges();
-      alert("Form submitted!");
+
+      
       document.getElementById("paginatedForm").reset();
       currentSection = 0;
       updateForm();
@@ -526,7 +526,8 @@ function removePlayer(id){
 
 function handleClick(element) {
   const position = element.getAttribute('data-position');
-  const id = parseInt(element.getAttribute('data-id'),10) 
+  const id = parseInt(element.getAttribute('data-id'));
+
   changePlayers(position, id);
 }
 
@@ -536,31 +537,28 @@ function changePlayers(position, id) {
   const playerOnField = players.find(player => player.id === id);
   const replacementPlayers = players.filter(player => player.position === position && player.id !== id);
 
-  // Récupération des éléments du DOM
+  
   const changeContainer = document.getElementById('change');
   const changePlayer = document.getElementById('change-player');
   const mark = document.getElementById("mark");
 
-  // Afficher la boîte de remplacement
-  changePlayer.classList.remove('hidden');
-  changeContainer.innerHTML = ''; // Réinitialise le conteneur
 
-  // Ajouter les joueurs de remplacement au conteneur
+  changePlayer.classList.remove('hidden');
+  changeContainer.innerHTML = ''; 
+
+ 
   replacementPlayers.forEach(replacement => {
-      // Crée un conteneur pour chaque joueur remplaçant
       const playerDiv = document.createElement('div');
       playerDiv.classList.add('cart');
       playerDiv.setAttribute("id",`${replacement.position}`);
-      playerDiv.innerHTML = replacement.position === "gk"
-          ? modalGoal(replacement) // Génère un joueur gardien
-          : modalPlayer(replacement); // Génère un joueur classique
+      playerDiv.innerHTML = replacement.position === "gk"  ? modalGoal(replacement) : modalPlayer(replacement);
 
-      // Ajoute un bouton pour confirmer le remplacement
+     
       const confirmButton = document.createElement('i');
       confirmButton.classList.add('bx', 'bx-check', 'delet');   
          confirmButton.addEventListener('click', () => {
           confirmReplacement(playerOnField.id, replacement.id);
-          changePlayer.classList.add('hidden'); // Cache la boîte de remplacement après confirmation
+          changePlayer.classList.add('hidden'); 
       });
 
       playerDiv.appendChild(confirmButton);
@@ -568,7 +566,6 @@ function changePlayers(position, id) {
       changeContainer.appendChild(playerDiv);
   });
 
-  // Ajoute un événement pour fermer la boîte de remplacement
   mark.addEventListener('click', () => {
       changePlayer.classList.add('hidden');
   });
@@ -580,27 +577,23 @@ function confirmReplacement(playerId, replacementId) {
 
   const replacementPlayer = players.find(player => player.id === replacementId);
 
-  console.log(playerOnField);
-  console.log(replacementPlayer);
+
 
   if (playerOnField && replacementPlayer) {
-    // Échange toutes les propriétés de manière explicite
-    const temp = { ...playerOnField }; // Copie temporaire des propriétés du joueur sur le terrain
-
-    // Transférer les propriétés du remplaçant vers le joueur sur le terrain
+  
+    const temp = { ...playerOnField }; 
+    
     Object.keys(playerOnField).forEach(key => {
         playerOnField[key] = replacementPlayer[key];
+        console.log(playerOnField[key]);
     });
 
-    // Transférer les propriétés temporaires (originales) vers le remplaçant
     Object.keys(replacementPlayer).forEach(key => {
         replacementPlayer[key] = temp[key];
     });
 
-    // Debugging : Affiche les joueurs après le remplacement
-    console.log("Joueurs après remplacement :", players);
 
-    // Sauvegarde les données et met à jour l'affichage
+ 
     saveToLocalStorage();
     location.reload()
 
@@ -612,15 +605,9 @@ function confirmReplacement(playerId, replacementId) {
 }
 
 function editPlayer(id) {
-  // Trouver le joueur à modifier
   const playerToEdit = players.find(player => player.id === id);
   
-  if (!playerToEdit) {
-    alert("Player not found!");
-    return;
-  }
 
-  // Pré-remplir le formulaire avec les données du joueur
   document.getElementById("name").value = playerToEdit.name || '';
   document.getElementById("photo").value = playerToEdit.photo || '';
   document.getElementById("nationality").value = playerToEdit.nationality || '';
@@ -639,25 +626,26 @@ function editPlayer(id) {
   document.getElementById("handling").value = playerToEdit.handling || '';
   document.getElementById("reflexes").value = playerToEdit.reflexes || '';
 
-  sections[0].classList.remove('hidden');
-  sections[1].classList.remove('hidden');
+  let saveBtn = document.getElementById("savechange");
+  saveBtn.classList.remove("hidden");
+  nextBtn.classList.add("hidden");
+  saveBtn.addEventListener("click" , () => {
+    if (validateInput()) {
+      if (currentSection < sections.length - 2) {
+        currentSection++;
+        updateForm();
+      } else {
+        saveChanges(id);
+      }
+    }
+  })
 
-  // Afficher la section appropriée si nécessaire
-  if (playerToEdit.typePlayer === "player") {
-    playerFields.classList.remove("hidden");
-    goalkeeperFields.classList.add("hidden");
-  } else {
-    playerFields.classList.add("hidden");
-    goalkeeperFields.classList.remove("hidden");
-  }
 
-  // Mettre à jour le bouton Submit pour qu'il gère la modification
-  nextBtn.textContent = "Save Changes";
-  nextBtn.onclick = () => saveChanges(id);
+
 }
 
 function saveChanges(id) {
-  
+
   const updatedPlayer = {
     id: id, 
     name: document.getElementById("name").value,
@@ -682,10 +670,8 @@ function saveChanges(id) {
   // Mettre à jour le joueur dans la liste
   players = players.map(player => player.id === id ? updatedPlayer : player);
 
-  // Sauvegarder les changements
   saveToLocalStorage();
 
-  // Réinitialiser le formulaire
   document.getElementById("paginatedForm").reset();
   currentSection = 0;
   updateForm();

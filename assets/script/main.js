@@ -686,6 +686,15 @@ function saveChanges(id) {
 document.addEventListener("DOMContentLoaded", () => {
   displayPlayers(players);
   });
-
+!
  
 
+  // undefined
+  // ch
+  // undefined
+  // let ch =  childe.forEach(item => {
+  //     const Rating = item.querySelectorAll('.top-section ')
+  // })
+  // ch 
+  // undefined
+  

@@ -6,9 +6,9 @@ const playerFields = document.getElementById("playerFields");
 const goalkeeperFields = document.getElementById("goalkeeperFields");
 let currentSection = 0;
 
+
+
 let players = JSON.parse(localStorage.getItem("players")) || [];
-
-
 
 
 function saveToLocalStorage() {
@@ -20,13 +20,11 @@ function updateForm() {
   sections.forEach((section, index) => {
     if (index === currentSection) {
       section.classList.remove("hidden");
-    }
-    if (index !== currentSection) {
+    }else {
       section.classList.add("hidden");
     }
   });
 
-  // Montrer ou cacher les champs spécifiques uniquement à la dernière section
   if (currentSection === 2) {
     if (playerType.value === "player") {
       playerFields.classList.remove("hidden");
@@ -53,7 +51,7 @@ function updateForm() {
     
   }
 
-  // Update button states
+  
   if (currentSection === 0) {
     prevBtn.classList.add("hidden");
   } else {
@@ -125,6 +123,10 @@ prevBtn.addEventListener("click", () => {
   if (currentSection > 0) {
     currentSection--;
     updateForm();
+    if (playerType.value === "player" && currentSection === 3) {
+      currentSection-=2;
+      updateForm();
+    }
   }
 });
 
@@ -135,11 +137,10 @@ nextBtn.addEventListener("click", () => {
       updateForm();
     } else {
       saveData();
-
-      
-      document.getElementById("paginatedForm").reset();
       currentSection = 0;
       updateForm();
+      document.getElementById("paginatedForm").reset();
+      alert("secuse");
     }
   }
 });
@@ -174,11 +175,11 @@ function saveData() {
   const handlingValue = document.getElementById("handling").value;
   const reflexesValue = document.getElementById("reflexes").value;
 
-  // Afficher les valeurs dans la console pour vérification
-
   
+
+ 
   let player = {
-    id: players.length -1 ,
+    id: Date.now(),
     name: nameValue,
     photo: photoValue,
     nationality: nationalityValue,
@@ -198,10 +199,11 @@ function saveData() {
     physical: physicalValue,
   };
   players.push(player);
+  
 
   saveToLocalStorage();
   displayPlayers([player]);
-  
+
 }
 
 function displayPlayers(players){
@@ -301,14 +303,15 @@ function displayPlayers(players){
         remplacement(item);
       }    
     
-    } 
+    }
   });
+
 }
 
 function generatePlayer(item) {
   return `
     <div class ="icons">
-     <i class='bx bx-revision add'  data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+    <i class='bx bx-revision add' data-id="${item.id}" data-position="${item.position}"  onclick="changePlayers(this)" ></i>
     <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
     <i class='bx bxs-pencil up-date'  onclick="editPlayer(${item.id})"></i>
     </div>
@@ -363,9 +366,9 @@ function generatePlayer(item) {
 function generateGoal(item) {
   return `
    <div class ="icons">
-     <i class='bx bx-revision add' id="add" data-position="${item.position}" data-id="${item.id}" onclick="handleClick(this)" ></i>
+    <i class='bx bx-revision add'   data-id="${item.id}" data-position="${item.position}"  onclick="changePlayers(this)" ></i>
     <i class='delet bx bxs-trash' onclick="removePlayer(${item.id})"></i>
-    <i class='bx bxs-pencil up-date' onclick="editPlayer(${item.id})" ></i>
+    <i class='bx bxs-pencil up-date'  onclick="editPlayer(${item.id})"></i>
     </div>
     
     <div class="top-section">
@@ -513,30 +516,25 @@ function remplacement(item) {
         }
         myDiv.setAttribute("id",`${item.position}`)
         replacement.appendChild(myDiv); 
+      
         return replacement;
 }
 
 function removePlayer(id){
-  players = players.filter(player => player.id !== id);
-
-
+  players = players.filter(player => player.id !== id );
   saveToLocalStorage();
   location.reload()
 }
 
-function handleClick(element) {
-  const position = element.getAttribute('data-position');
-  const id = parseInt(element.getAttribute('data-id'));
+function changePlayers(element) {
 
-  changePlayers(position, id);
-}
+  const  id = parseInt(element.getAttribute("data-id"));
+  const position = element.getAttribute("data-position");
+ 
 
-
-
-function changePlayers(position, id) {
   const playerOnField = players.find(player => player.id === id);
-  const replacementPlayers = players.filter(player => player.position === position && player.id !== id);
-
+  const replacementPlayers = players.filter(player =>  player.position === position && player.id !== id);
+ 
   
   const changeContainer = document.getElementById('change');
   const changePlayer = document.getElementById('change-player');
@@ -544,35 +542,40 @@ function changePlayers(position, id) {
 
 
   changePlayer.classList.remove('hidden');
-  changeContainer.innerHTML = ''; 
+  
 
  
   replacementPlayers.forEach(replacement => {
       const playerDiv = document.createElement('div');
       playerDiv.classList.add('cart');
       playerDiv.setAttribute("id",`${replacement.position}`);
+      
       playerDiv.innerHTML = replacement.position === "gk"  ? modalGoal(replacement) : modalPlayer(replacement);
-
-     
+      
       const confirmButton = document.createElement('i');
-      confirmButton.classList.add('bx', 'bx-check', 'delet');   
+      confirmButton.classList.add('bx', 'bx-check', 'check');   
+
          confirmButton.addEventListener('click', () => {
           confirmReplacement(playerOnField.id, replacement.id);
           changePlayer.classList.add('hidden'); 
-      });
-
-      playerDiv.appendChild(confirmButton);
-  
-      changeContainer.appendChild(playerDiv);
-  });
-
-  mark.addEventListener('click', () => {
+        });
+        playerDiv.appendChild(confirmButton);
+        changeContainer.appendChild(playerDiv);
+        mark.addEventListener('click', () => {
+          changeContainer.removeChild(playerDiv);
+          changePlayer.classList.add('hidden');
+        });
+    });
+    mark.addEventListener('click', () => {
       changePlayer.classList.add('hidden');
-  });
+    });
+    
+    
+      
+
 }
 
-
-function confirmReplacement(playerId, replacementId) {
+function confirmReplacement(playerId, replacementId) { 
   const playerOnField = players.find(player => player.id === playerId);
 
   const replacementPlayer = players.find(player => player.id === replacementId);
@@ -581,15 +584,15 @@ function confirmReplacement(playerId, replacementId) {
 
   if (playerOnField && replacementPlayer) {
   
-    const temp = { ...playerOnField }; 
+    const swap = { ...playerOnField }; 
     
+    ;
     Object.keys(playerOnField).forEach(key => {
         playerOnField[key] = replacementPlayer[key];
-        console.log(playerOnField[key]);
     });
 
     Object.keys(replacementPlayer).forEach(key => {
-        replacementPlayer[key] = temp[key];
+        replacementPlayer[key] = swap[key];
     });
 
 
@@ -606,7 +609,6 @@ function confirmReplacement(playerId, replacementId) {
 
 function editPlayer(id) {
   const playerToEdit = players.find(player => player.id === id);
-  
 
   document.getElementById("name").value = playerToEdit.name || '';
   document.getElementById("photo").value = playerToEdit.photo || '';
@@ -667,7 +669,6 @@ function saveChanges(id) {
     reflexes: document.getElementById("reflexes").value,
   };
 
-  // Mettre à jour le joueur dans la liste
   players = players.map(player => player.id === id ? updatedPlayer : player);
 
   saveToLocalStorage();
@@ -681,8 +682,10 @@ function saveChanges(id) {
   location.reload()
 }
 
-console.log(players);
 
 document.addEventListener("DOMContentLoaded", () => {
   displayPlayers(players);
   });
+
+ 
+

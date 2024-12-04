@@ -1,21 +1,18 @@
-/* =====================
-   Laptop Styles (1200px et plus)
-   ===================== */
+
 
 
 @media (min-width: 1200px) {
     .container {
-      width: 1170px; /* Largeur adaptée aux grands écrans (laptops de taille moyenne et plus) */
+      width: 80%; 
     }
+ 
   }
   
-  /* =====================
-     Tablette Styles (768px à 1200px)
-     ===================== */
+
   
   @media (min-width: 768px) and (max-width: 1199px) {
     .container {
-      width: 970px; /* Largeur pour tablettes et petits laptops */
+      width: 90%;
     }
   
     .main-section {
@@ -23,19 +20,13 @@
         align-items: center;
       }
      
-    .play {
-        width: auto;
-    }  
    
   }
   
-  /* =====================
-     Mobile Styles (en-dessous de 768px)
-     ===================== */
-  
+
   @media (max-width: 767px) {
     .container {
-      width: 95%; /* Pleine largeur pour les petits écrans */
+      width: 95%; 
     }
 
     .main-section {
@@ -43,13 +34,14 @@
         align-items: center;
       }
       .form-container {
+        width: 400px;
         margin: 20px auto;
         padding: 10px 30px;
       }
       .play {
         width: auto;
       }
-      .image {
+      .field {
         width: 500px;
       }
       .cart {

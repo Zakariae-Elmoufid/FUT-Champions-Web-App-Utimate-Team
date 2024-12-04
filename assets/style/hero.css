@@ -27,34 +27,6 @@
     width: 50px;
 }
 
-/* Hero Section */
-/* .hero {
-    background-image: url('https://i.pinimg.com/736x/ed/9e/91/ed9e9183c392a68ade6dcb6359a2ca79.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 50px 20px;
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    animation: fadeIn 1.5s ease-in-out;
-    height: 100vh;
-    
-    position: relative;
-}
-
-.hero::after {
-    content: "";
-    background-color: var(--primary-color);
-    position: absolute;
-    opacity: 0.5;
-    width: 100%;
-    height: 100%;
-    left: 0;
-} */
-
 .hero {
     position: relative;
     width: 100%;

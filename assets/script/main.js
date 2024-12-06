@@ -686,7 +686,7 @@ function saveChanges(id) {
 document.addEventListener("DOMContentLoaded", () => {
   displayPlayers(players);
   });
-!
+
  
 
   // undefined
